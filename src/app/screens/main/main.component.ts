@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { OfferCardComponent } from '../../common/components/offer-card/offer-card.component';
 import { Offer } from '../../common/types/types';
 
@@ -10,5 +10,9 @@ import { Offer } from '../../common/types/types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainScreenComponent {
+
+  @Input() offersCount = 0;
+
   public items: Offer[] = Array(5).fill(null)
-}
+
+  }

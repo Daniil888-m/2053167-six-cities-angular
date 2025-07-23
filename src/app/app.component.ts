@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MainComponent } from "./pages/main/main.component";
+import { OFFERS_COUNT } from './utils/consts';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,5 @@ import { MainComponent } from "./pages/main/main.component";
 })
 export class AppComponent {
   title = 'angular-template-project';
+  public offersCount = OFFERS_COUNT;
 }

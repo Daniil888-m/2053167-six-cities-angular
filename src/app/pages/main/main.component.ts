@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MainScreenComponent } from '../../screens/main/main.component';
 
 @Component({
@@ -9,5 +9,5 @@ import { MainScreenComponent } from '../../screens/main/main.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent {
-
+  @Input() offersCount = 0;
 }
