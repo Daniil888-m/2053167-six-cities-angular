@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-offer-card',
   imports: [],
-  templateUrl: './login.component.html',
-  styles: ``,
+  templateUrl: './offer-card.component.html',
+  styleUrl: './offer-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent {
+export class OfferCardComponent {
 
 }
