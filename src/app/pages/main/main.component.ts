@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MainScreenComponent } from '../../screens/main/main.component';
+import { OFFERS_COUNT } from '../../utils/consts';
 
 @Component({
   selector: 'app-main',
   imports: [MainScreenComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {
-  @Input() offersCount = 0;
+  public offersCount = OFFERS_COUNT;
 }
