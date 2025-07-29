@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FavoritesScreenComponent } from './screen/favorites-screen.component';
 
 @Component({
   selector: 'app-favorites',
-  imports: [],
+  imports: [FavoritesScreenComponent],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoritesComponent {
-
-}
+export class FavoritesComponent {}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MainScreenComponent } from '../../screens/main/main.component';
-import { OFFERS_COUNT } from '../../utils/consts';
+import { MainScreenComponent } from './screen/main-screen.component';
+import { OFFERS_COUNT } from './main.model';
 
 @Component({
   selector: 'app-main',
