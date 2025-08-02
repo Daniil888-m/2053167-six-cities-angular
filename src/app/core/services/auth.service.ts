@@ -5,9 +5,13 @@ import { AuthorizationStatus } from '../../common/consts';
   providedIn: 'root',
 })
 export default class AuthService {
-  _authorizationStatus = AuthorizationStatus.Auth;
+  _authorizationStatus = AuthorizationStatus.Unknown;
 
-  getStatus() {
+  public getStatus() {
     return this._authorizationStatus;
+  }
+
+  public get isAuthorized() {
+    return this._authorizationStatus === AuthorizationStatus.Auth;
   }
 }
