@@ -3,7 +3,7 @@
   <span>Premium</span>
   }
   <div class="cities__image-wrapper place-card__image-wrapper">
-    <a href="#">
+    <a [routerLink]="['/', 'offer', offer().id]">
       <img class="place-card__image" src={{offer().previewImage}} width="260" height="200" alt="Place image">
     </a>
   </div>

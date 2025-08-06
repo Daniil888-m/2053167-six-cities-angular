@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { Offer } from '../../../mocks/offers';
 import { getUniqueCities } from '../../../utils/utils';
 import { OffersListComponent } from '../../../offers-list/offers-list.component';
@@ -8,6 +13,7 @@ import { OffersListComponent } from '../../../offers-list/offers-list.component'
   imports: [OffersListComponent],
   templateUrl: './favorite-list.component.html',
   styleUrl: './favorite-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteListComponent {
   public offers = input.required<Offer[]>();
