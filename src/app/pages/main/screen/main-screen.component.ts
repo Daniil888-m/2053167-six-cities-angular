@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { OfferCardComponent } from '../../../common/components/offer-card/offer-card.component';
+import { Offer, offersMock } from '../../../mocks/offers';
 
 @Component({
   selector: 'app-main-screen',
@@ -11,8 +12,8 @@ import { OfferCardComponent } from '../../../common/components/offer-card/offer-
 export class MainScreenComponent {
   public offersCount = input.required<number>();
 
-  public items: null[];
+  public items: Offer[];
   constructor() {
-    this.items = Array(5).fill(null);
+    this.items = offersMock;
   }
 }

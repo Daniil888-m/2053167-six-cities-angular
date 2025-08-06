@@ -57,9 +57,12 @@
           </ul>
         </form>
         <div class="cities__places-list places__list tabs__content">
+          @if (items.length) {
           @for (item of items; track $index) {
-          <app-offer-card></app-offer-card>
+          <app-offer-card [offer]="item"></app-offer-card>
           }
+          }
+
         </div>
       </section>
       <div class="cities__right-section">
