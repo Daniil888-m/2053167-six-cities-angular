@@ -1,0 +1,7 @@
+<div class="cities__places-list places__list tabs__content">
+  @if (offers().length) {
+  @for (offer of offers(); track $index) {
+  <app-offer-card [offer]="offer"></app-offer-card>
+  }
+  }
+</div>

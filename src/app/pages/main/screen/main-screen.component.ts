@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { OfferCardComponent } from '../../../common/components/offer-card/offer-card.component';
 import { Offer, offersMock } from '../../../mocks/offers';
+import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 
 @Component({
   selector: 'app-main-screen',
-  imports: [OfferCardComponent],
+  imports: [OffersListComponent],
   templateUrl: './main-screen.component.html',
   styleUrl: './main-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
