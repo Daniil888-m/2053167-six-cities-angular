@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  signal,
+} from '@angular/core';
 import { Offer, offersMock } from '../../../mocks/offers';
 import { OffersListComponent } from '../../../offers-list/offers-list.component';
 
@@ -11,7 +16,11 @@ import { OffersListComponent } from '../../../offers-list/offers-list.component'
 })
 export class MainScreenComponent {
   public offersCount = input.required<number>();
+  public activeOffer = signal<string | null>(null);
 
+  public changeActiveOffer = (newOfferId: string): void => {
+    this.activeOffer.set(newOfferId);
+  };
   public items: Offer[];
   constructor() {
     this.items = offersMock;

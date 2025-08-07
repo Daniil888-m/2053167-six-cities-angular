@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { favoritesMock } from '../../../mocks/offers';
 import { FavoriteListComponent } from '../favorite-list/favorite-list.component';
 
@@ -11,10 +11,4 @@ import { FavoriteListComponent } from '../favorite-list/favorite-list.component'
 })
 export class FavoritesScreenComponent {
   public offers = favoritesMock;
-
-  public activeOffer = signal<string | null>(null);
-
-  changeActiveOffer(newOfferId: string | null) {
-    this.activeOffer.set(newOfferId);
-  }
 }

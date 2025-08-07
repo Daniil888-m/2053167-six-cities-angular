@@ -2,7 +2,7 @@
   <div class="page__favorites-container container">
     <section class="favorites">
       <h1 class="favorites__title">Saved listing</h1>
-      <app-favorite-list [offers]="offers" />
+      <app-favorite-list [offers]="offers" offerChange="changeActiveOffer()" />
     </section>
   </div>
 </main>
