@@ -12,16 +12,18 @@ import { RouterLink } from '@angular/router';
 })
 export class OfferCardComponent {
   public offer = input.required<Offer>();
-  public handleChange = input.required<(offerId: string) => void>();
+  public handleChange = input<(offerId: string) => void>();
 
   public onMouseEnter = (): void => {
-    if (this.handleChange()) {
-      this.handleChange()(this.offer().id);
+    const callback = this.handleChange();
+    if (callback) {
+      callback(this.offer().id);
     }
   };
   public onMouseLeave = (): void => {
-    if (this.handleChange()) {
-      this.handleChange()('');
+    const callback = this.handleChange();
+    if (callback) {
+      callback('');
     }
   };
 }
