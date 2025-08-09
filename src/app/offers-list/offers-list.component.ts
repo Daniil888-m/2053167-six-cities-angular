@@ -12,7 +12,6 @@ import { NgClass } from '@angular/common';
 })
 export class OffersListComponent {
   public offers = input.required<Offer[]>();
-  public handleChange = input<(offerId: string) => void>();
 
   public forFavoritePage = input();
 }

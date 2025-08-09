@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { Offer } from '../../types/types';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { RouterLink } from '@angular/router';
+import { ActiveCardService } from '../../../pages/main/services/active-card.service';
 
 @Component({
   selector: 'app-offer-card',
@@ -11,19 +17,14 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OfferCardComponent {
+  private activeOfferService = inject(ActiveCardService);
+
   public offer = input.required<Offer>();
-  public handleChange = input<(offerId: string) => void>();
 
   public onMouseEnter = (): void => {
-    const callback = this.handleChange();
-    if (callback) {
-      callback(this.offer().id);
-    }
+    this.activeOfferService.current$.next(this.offer().id);
   };
   public onMouseLeave = (): void => {
-    const callback = this.handleChange();
-    if (callback) {
-      callback('');
-    }
+    this.activeOfferService.current$.next('');
   };
 }
