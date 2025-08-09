@@ -3,11 +3,13 @@ import {
   Component,
   inject,
   input,
+  OnDestroy,
   signal,
 } from '@angular/core';
 import { Offer, offersMock } from '../../../mocks/offers';
 import { OffersListComponent } from '../../../offers-list/offers-list.component';
 import { ActiveCardService } from '../services/active-card.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-main-screen',
@@ -17,7 +19,7 @@ import { ActiveCardService } from '../services/active-card.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ActiveCardService],
 })
-export class MainScreenComponent {
+export class MainScreenComponent implements OnDestroy {
   private activeOfferService = inject(ActiveCardService);
 
   public offersCount = input.required<number>();
@@ -25,12 +27,20 @@ export class MainScreenComponent {
   public activeOfferId = '';
 
   public items: Offer[];
+  private destroy$ = new Subject<void>();
 
   constructor() {
     this.items = offersMock;
 
-    this.activeOfferService.current$.subscribe((activeOffer) => {
-      this.activeOfferId = activeOffer;
-    });
+    this.activeOfferService.current$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((activeOffer) => {
+        this.activeOfferId = activeOffer;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
