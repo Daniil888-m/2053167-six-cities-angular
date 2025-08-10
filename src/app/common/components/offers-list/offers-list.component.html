@@ -3,7 +3,7 @@
   'favorites__places': forFavoritePage()
 }">
   @if (offers().length) {
-  @for (offer of offers(); track $index) {
+  @for (offer of offers(); track offer.id) {
 
   @if(forFavoritePage()) {
   <app-favorite-card [offer]="offer" />

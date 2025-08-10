@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Offer } from '../../../mocks/offers';
 import { getUniqueCities } from '../../../utils/utils';
-import { OffersListComponent } from '../../../offers-list/offers-list.component';
+import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 
 @Component({
   selector: 'app-favorite-list',

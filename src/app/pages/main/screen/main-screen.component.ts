@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { Offer, offersMock } from '../../../mocks/offers';
-import { OffersListComponent } from '../../../offers-list/offers-list.component';
+import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 import { ActiveCardService } from '../services/active-card.service';
 import { Subject, takeUntil } from 'rxjs';
 

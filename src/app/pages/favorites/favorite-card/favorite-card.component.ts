@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Offer } from '../mocks/offers';
-import { RatingPipe } from '../common/pipes/rating.pipe';
+
 import { RouterLink } from '@angular/router';
+import { RatingPipe } from '../../../common/pipes/rating.pipe';
+import { Offer } from '../../../mocks/offers';
 
 @Component({
   selector: 'app-favorite-card',
