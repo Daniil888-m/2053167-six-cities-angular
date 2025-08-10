@@ -1,0 +1,16 @@
+<div [ngClass]="{
+  'cities__places-list places__list tabs__content': !forFavoritePage(),
+  'favorites__places': forFavoritePage()
+}">
+  @if (offers().length) {
+  @for (offer of offers(); track offer.id) {
+
+  @if(forFavoritePage()) {
+  <app-favorite-card [offer]="offer" />
+
+  } @else {
+  <app-offer-card [offer]="offer" />
+  }
+
+  } }
+</div>

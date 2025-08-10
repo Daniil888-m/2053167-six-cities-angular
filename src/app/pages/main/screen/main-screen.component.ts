@@ -1,18 +1,46 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { OfferCardComponent } from '../../../common/components/offer-card/offer-card.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnDestroy,
+  signal,
+} from '@angular/core';
+import { Offer, offersMock } from '../../../mocks/offers';
+import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
+import { ActiveCardService } from '../services/active-card.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-main-screen',
-  imports: [OfferCardComponent],
+  imports: [OffersListComponent],
   templateUrl: './main-screen.component.html',
   styleUrl: './main-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ActiveCardService],
 })
-export class MainScreenComponent {
-  public offersCount = input.required<number>();
+export class MainScreenComponent implements OnDestroy {
+  private activeOfferService = inject(ActiveCardService);
 
-  public items: null[];
+  public offersCount = input.required<number>();
+  public activeOffer = signal<string | null>(null);
+  public activeOfferId = '';
+
+  public items: Offer[];
+  private destroy$ = new Subject<void>();
+
   constructor() {
-    this.items = Array(5).fill(null);
+    this.items = offersMock;
+
+    this.activeOfferService.current$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((activeOffer) => {
+        this.activeOfferId = activeOffer;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

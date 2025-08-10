@@ -1,0 +1,19 @@
+<ul class="favorites__list">
+
+  @if(offers().length) {
+  @for(city of uniqueCitites(); track $index) {
+  <li class="favorites__locations-items">
+    <div class="favorites__locations locations locations--current">
+      <div class="locations__item">
+        <a class="locations__item-link" href="#">
+          <span>{{city}}</span>
+        </a>
+      </div>
+    </div>
+    <app-offers-list [offers]="getOfferByCity(city)" [forFavoritePage]="true"></app-offers-list>
+  </li>
+  }
+  }
+
+
+</ul>
