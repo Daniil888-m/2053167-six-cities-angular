@@ -1,3 +1,4 @@
+import { CitiesList } from '../common/consts';
 import { Offer } from '../mocks/offers';
 
 export const getUniqueCities = (favoritesOffers: Offer[]) => {
@@ -8,3 +9,6 @@ export const getUniqueCities = (favoritesOffers: Offer[]) => {
     return uniqueCities;
   }, []);
 };
+
+export const filterByCity = (offers: Offer[], activeCity: CitiesList) =>
+  offers.filter((offer: Offer) => offer.city.name === activeCity);

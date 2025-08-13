@@ -4,32 +4,32 @@
     <section class="locations container">
       <ul class="locations__list tabs__list">
         <li class="locations__item">
-          <a class="locations__item-link tabs__item" href="#">
+          <a class="locations__item-link tabs__item" href="#" [class.tabs__item--active]="activeCity() === Cities.Paris" (click)="onCityClick(Cities.Paris); $event.preventDefault()">
             <span>Paris</span>
           </a>
         </li>
         <li class="locations__item">
-          <a class="locations__item-link tabs__item" href="#">
+          <a class="locations__item-link tabs__item" href="#" [class.tabs__item--active]="activeCity() === Cities.Cologne" (click)="onCityClick(Cities.Cologne); $event.preventDefault()">
             <span>Cologne</span>
           </a>
         </li>
-        <li class="locations__item">
-          <a class="locations__item-link tabs__item" href="#">
+        <li class=" locations__item">
+          <a class="locations__item-link tabs__item" [class.tabs__item--active]="activeCity() === Cities.Brussels" href="#" (click)="onCityClick(Cities.Brussels); $event.preventDefault()">
             <span>Brussels</span>
           </a>
         </li>
         <li class="locations__item">
-          <a class="locations__item-link tabs__item tabs__item--active">
+          <a class="locations__item-link tabs__item" [class.tabs__item--active]="activeCity() === Cities.Amsterdam" href="#" (click)="onCityClick(Cities.Amsterdam); $event.preventDefault()">
             <span>Amsterdam</span>
           </a>
         </li>
         <li class="locations__item">
-          <a class="locations__item-link tabs__item" href="#">
+          <a class="locations__item-link tabs__item" href="#" [class.tabs__item--active]="activeCity() === Cities.Hamburg" (click)="onCityClick(Cities.Hamburg); $event.preventDefault()">
             <span>Hamburg</span>
           </a>
         </li>
         <li class="locations__item">
-          <a class="locations__item-link tabs__item" href="#">
+          <a class="locations__item-link tabs__item" href="#" [class.tabs__item--active]="activeCity() === Cities.Dusseldorf" (click)="onCityClick(Cities.Dusseldorf); $event.preventDefault()">
             <span>Dusseldorf</span>
           </a>
         </li>
@@ -59,7 +59,12 @@
         <app-offers-list [offers]="items" />
       </section>
       <div class="cities__right-section">
-        <section class="cities__map map"></section>
+
+        <section class="cities__map map">
+          @if(activeCityOffers().length) {
+          <app-map [activeOffer]="activeOffer()" [cityInfo]="activeCityOffers()[0].city" [currentOffers]="activeCityOffers()" />
+          }
+        </section>
       </div>
     </div>
   </div>
