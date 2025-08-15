@@ -1,13 +1,15 @@
 export interface ReviewType {
   id: string;
   date: string;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
+  user: userType;
   comment: string;
   rating: number;
+}
+
+interface userType {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
 
 export const reviews: ReviewType[] = [

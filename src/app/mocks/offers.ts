@@ -1,21 +1,21 @@
+export interface CityInfo {
+  name: string;
+  location: LocationInfo;
+}
+
+interface LocationInfo {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
 export interface Offer {
   id: string;
   title: string;
   type: string;
   price: number;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  city: CityInfo;
+  location: LocationInfo;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;

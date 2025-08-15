@@ -22,9 +22,9 @@ export class OfferCardComponent {
   public offer = input.required<Offer>();
 
   public onMouseEnter = (): void => {
-    this.activeOfferService.current$.next(this.offer().id);
+    this.activeOfferService.current$.next(this.offer());
   };
   public onMouseLeave = (): void => {
-    this.activeOfferService.current$.next('');
+    this.activeOfferService.current$.next(null);
   };
 }
