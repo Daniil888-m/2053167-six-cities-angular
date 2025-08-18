@@ -1,8 +1,8 @@
-<article class="cities__card place-card" (mouseenter)="onMouseEnter()" (mouseleave)=" onMouseLeave()">
+<article class=" place-card" [class.cities__card]="!isNearbyCard()" [class.near-places__card]="isNearbyCard()" (mouseenter)="onMouseEnter()" (mouseleave)=" onMouseLeave()">
   @if(offer().isPremium) {
   <span>Premium</span>
   }
-  <div class="cities__image-wrapper place-card__image-wrapper">
+  <div class="place-card__image-wrapper" [class.cities__image-wrapper]="!isNearbyCard()" [class.near-places__image-wrapper]="isNearbyCard()">
     <a [routerLink]="['/', 'offer', offer().id]">
       <img class="place-card__image" src={{offer().previewImage}} width="260" height="200" alt="Place image">
     </a>

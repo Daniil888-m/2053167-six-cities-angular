@@ -18,6 +18,7 @@ import { ActiveCardService } from '../../../pages/main/services/active-card.serv
 })
 export class OfferCardComponent {
   private activeOfferService = inject(ActiveCardService);
+  public isNearbyCard = input<boolean>(false);
 
   public offer = input.required<Offer>();
 
