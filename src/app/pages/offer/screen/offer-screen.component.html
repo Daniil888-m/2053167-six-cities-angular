@@ -124,7 +124,12 @@
         </section>
       </div>
     </div>
-    <section class="offer__map map"></section>
+    <section class="">
+      <div class="container offer__map">
+
+        <app-map [activeOffer]="offer" [cityInfo]="offer.city" [currentOffers]="nearbyOffers.concat(offer)" />
+      </div>
+    </section>
   </section>
   <div class="container">
     <section class="near-places places">

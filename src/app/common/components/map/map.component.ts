@@ -19,9 +19,8 @@ import { MapService } from './services/map.service';
 })
 export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
   cityInfo = input.required<CityInfo>();
-  activeOffer = input.required<Offer | null>();
-  currentOffers = input.required<Offer[]>();
-
+  activeOffer = input.required<Offer | { id: string } | null>();
+  currentOffers = input.required<Partial<Offer>[]>();
   private mapService = inject(MapService);
 
   ngAfterViewInit(): void {

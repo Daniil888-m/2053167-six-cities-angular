@@ -3,7 +3,7 @@ export interface CityInfo {
   location: LocationInfo;
 }
 
-interface LocationInfo {
+export interface LocationInfo {
   latitude: number;
   longitude: number;
   zoom: number;

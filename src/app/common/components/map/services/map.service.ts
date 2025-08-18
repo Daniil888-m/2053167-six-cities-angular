@@ -36,7 +36,10 @@ export class MapService {
     tiles.addTo(this.map);
   }
 
-  public renderMarkers(offers: Offer[], activeOffer: Offer | null) {
+  public renderMarkers(
+    offers: Partial<Offer>[],
+    activeOffer: Offer | { id: string } | null
+  ) {
     if (!this.map) return;
 
     if (this.isRenderedRef && this.map) {
@@ -45,28 +48,39 @@ export class MapService {
     }
     if (offers.length) {
       this.markerLayer = L.layerGroup().addTo(this.map);
+      const validOffers = offers.filter(
+        (offer) => offer.id && offer.city?.location
+      );
       if (this.markerLayer !== null) {
-        offers.forEach((point) => {
-          const marker = new L.Marker({
-            lat: point.location.latitude,
-            lng: point.location.longitude,
-          });
+        validOffers.forEach((point) => {
+          if (point.location) {
+            const marker = new L.Marker({
+              lat: point.location?.latitude,
+              lng: point.location?.longitude,
+            });
 
-          marker
-            .setIcon(
-              point.id === activeOffer?.id
-                ? currentCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(this.markerLayer as L.LayerGroup);
+            marker
+              .setIcon(
+                point.id === activeOffer?.id
+                  ? currentCustomIcon
+                  : defaultCustomIcon
+              )
+              .addTo(this.markerLayer as L.LayerGroup);
+          }
         });
         this.isRenderedRef = true;
       }
 
-      this.map.setView(
-        [offers[0].city.location.latitude, offers[0].city.location.longitude],
-        12
-      );
+      const firstOffer = validOffers[0];
+      if (firstOffer.city) {
+        this.map.setView(
+          [
+            firstOffer.city.location.latitude,
+            firstOffer.city.location.longitude,
+          ],
+          12
+        );
+      }
     }
   }
 
