@@ -6,12 +6,8 @@
   flex-direction: column;
 }
 
-/* .offer__map {
-  max-width: 1144px;
-  border: 10px red solid;
-} */
-
 .map-section {
   max-width: 1144px;
   display: inline-block;
+  width: 100%;
 }
