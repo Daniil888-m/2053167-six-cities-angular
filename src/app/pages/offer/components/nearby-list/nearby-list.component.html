@@ -1,0 +1,6 @@
+<div class="near-places__list places__list">
+  @for (offer of offers(); track offer.id) {
+  <app-offer-card [offer]="offer" [isNearbyCard]="true" />
+
+  }
+</div>

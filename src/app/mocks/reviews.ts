@@ -12,7 +12,7 @@ interface userType {
   isPro: boolean;
 }
 
-export const reviews: ReviewType[] = [
+export const reviewsMock: ReviewType[] = [
   {
     id: 'a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14',
     date: '2023-07-15T10:30:45.123Z',

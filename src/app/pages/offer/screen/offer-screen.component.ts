@@ -1,11 +1,32 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ReviewFormComponent } from '../review-form/review-form.component';
+import { ReviewFormComponent } from '../components/review-form/review-form.component';
+import { ReviewsListComponent } from '../components/reviews-list/reviews-list.component';
+import { Offer, offersMock } from '../../../mocks/offers';
+import { MapComponent } from '../../../common/components/map/map.component';
+import { OfferFull, offerMock } from '../../../mocks/offer';
+import { NearbyListComponent } from '../components/nearby-list/nearby-list.component';
+import { ActiveCardService } from '../../main/services/active-card.service';
+import { reviewsMock } from '../../../mocks/reviews';
 
 @Component({
   selector: 'app-offer-screen',
-  imports: [ReviewFormComponent],
+  imports: [
+    ReviewFormComponent,
+    ReviewsListComponent,
+    MapComponent,
+    NearbyListComponent,
+  ],
   templateUrl: './offer-screen.component.html',
   styleUrl: './offer-screen.component.css',
+  providers: [ActiveCardService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OfferScreenComponent {}
+export class OfferScreenComponent {
+  public reviews = reviewsMock;
+  public nearbyOffers: Offer[] = offersMock.slice(0, 3);
+  public offer: OfferFull = offerMock;
+
+  public getMapOffers() {
+    return [...this.nearbyOffers, this.offer];
+  }
+}

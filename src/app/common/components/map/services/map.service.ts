@@ -3,15 +3,13 @@ import * as L from 'leaflet';
 import { CityInfo } from '../../../../mocks/offers';
 import { Offer } from '../../../types/types';
 import { currentCustomIcon, defaultCustomIcon } from '../map.model';
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MapService {
   private markerLayer: L.LayerGroup | null = null;
   private isRenderedRef = false;
-  private map: L.Map | null = null;
+  private map?: L.Map;
 
-  cityInfo: CityInfo | null = null;
+  cityInfo?: CityInfo;
   activeOffer?: Offer;
 
   public initMap(cityInfo: CityInfo): void {
@@ -36,7 +34,10 @@ export class MapService {
     tiles.addTo(this.map);
   }
 
-  public renderMarkers(offers: Offer[], activeOffer: Offer | null) {
+  public renderMarkers(
+    offers: Partial<Offer>[],
+    activeOffer: Offer | { id: string } | null
+  ) {
     if (!this.map) return;
 
     if (this.isRenderedRef && this.map) {
@@ -45,33 +46,44 @@ export class MapService {
     }
     if (offers.length) {
       this.markerLayer = L.layerGroup().addTo(this.map);
+      const validOffers = offers.filter(
+        (offer) => offer.id && offer.city?.location
+      );
       if (this.markerLayer !== null) {
-        offers.forEach((point) => {
-          const marker = new L.Marker({
-            lat: point.location.latitude,
-            lng: point.location.longitude,
-          });
+        validOffers.forEach((point) => {
+          if (point.location) {
+            const marker = new L.Marker({
+              lat: point.location?.latitude,
+              lng: point.location?.longitude,
+            });
 
-          marker
-            .setIcon(
-              point.id === activeOffer?.id
-                ? currentCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(this.markerLayer as L.LayerGroup);
+            marker
+              .setIcon(
+                point.id === activeOffer?.id
+                  ? currentCustomIcon
+                  : defaultCustomIcon
+              )
+              .addTo(this.markerLayer as L.LayerGroup);
+          }
         });
         this.isRenderedRef = true;
       }
 
-      this.map.setView(
-        [offers[0].city.location.latitude, offers[0].city.location.longitude],
-        12
-      );
+      const firstOffer = validOffers[0];
+      if (firstOffer.city) {
+        this.map.setView(
+          [
+            firstOffer.city.location.latitude,
+            firstOffer.city.location.longitude,
+          ],
+          12
+        );
+      }
     }
   }
 
   public destroy() {
     this.map?.remove();
-    this.map = null;
+    this.map = undefined;
   }
 }

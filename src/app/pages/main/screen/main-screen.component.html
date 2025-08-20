@@ -73,7 +73,7 @@
       </section>
       <div class="cities__right-section">
 
-        <section class="cities__map map">
+        <section class="map-section">
           @if(activeCityOffers().length) {
           <app-map [activeOffer]="activeOffer()" [cityInfo]="activeCityOffers()[0].city" [currentOffers]="activeCityOffers()" />
           }

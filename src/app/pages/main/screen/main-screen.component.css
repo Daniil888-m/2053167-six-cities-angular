@@ -5,3 +5,9 @@
   display: flex;
   flex-direction: column;
 }
+
+.map-section {
+  max-width: 1144px;
+  display: inline-block;
+  width: 100%;
+}
