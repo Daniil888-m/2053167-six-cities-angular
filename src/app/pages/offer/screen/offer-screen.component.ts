@@ -22,9 +22,9 @@ import { ActiveCardService } from '../../main/services/active-card.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OfferScreenComponent {
-  reviews = reviewsMock;
-  nearbyOffers: Offer[] = offersMock.slice(0, 3);
-  offer: OfferFull = offerMock;
+  public reviews = reviewsMock;
+  public nearbyOffers: Offer[] = offersMock.slice(0, 3);
+  public offer: OfferFull = offerMock;
 
   public getMapOffers() {
     return [...this.nearbyOffers, this.offer];

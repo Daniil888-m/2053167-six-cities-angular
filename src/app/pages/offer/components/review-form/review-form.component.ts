@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './review-form.component.html',
   styleUrl: './review-form.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewFormComponent {
   public reviewText = '';

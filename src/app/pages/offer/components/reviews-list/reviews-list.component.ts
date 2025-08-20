@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ReviewType } from '../../../../mocks/reviews';
 import { ReviewComponent } from '../review/review.component';
 
@@ -6,8 +6,8 @@ import { ReviewComponent } from '../review/review.component';
   selector: 'app-reviews-list',
   imports: [ReviewComponent],
   templateUrl: './reviews-list.component.html',
-  styleUrl: './reviews-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewsListComponent {
-  reviews = input.required<ReviewType[]>();
+  public reviews = input.required<ReviewType[]>();
 }
