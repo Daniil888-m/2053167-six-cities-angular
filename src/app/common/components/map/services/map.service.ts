@@ -3,15 +3,13 @@ import * as L from 'leaflet';
 import { CityInfo } from '../../../../mocks/offers';
 import { Offer } from '../../../types/types';
 import { currentCustomIcon, defaultCustomIcon } from '../map.model';
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MapService {
   private markerLayer: L.LayerGroup | null = null;
   private isRenderedRef = false;
-  private map: L.Map | null = null;
+  private map?: L.Map;
 
-  cityInfo: CityInfo | null = null;
+  cityInfo?: CityInfo;
   activeOffer?: Offer;
 
   public initMap(cityInfo: CityInfo): void {
@@ -86,6 +84,6 @@ export class MapService {
 
   public destroy() {
     this.map?.remove();
-    this.map = null;
+    this.map = undefined;
   }
 }
