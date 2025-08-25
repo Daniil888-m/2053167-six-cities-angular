@@ -16,6 +16,7 @@ import { MapService } from './services/map.service';
   imports: [],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
+  providers: [MapService],
 })
 export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
   cityInfo = input.required<CityInfo>();
