@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   inject,
-  input,
   OnDestroy,
   signal,
 } from '@angular/core';
@@ -29,7 +28,6 @@ export class MainScreenComponent implements OnDestroy {
   private activeOfferService = inject(ActiveCardService);
   private activeCityService = inject(ActiveCityService);
 
-  public offersCount = input.required<number>();
   public activeOffer = signal<Offer | null>(null);
   onCityClick = (newCityName: CitiesList) => {
     this.activeCityService.changeActiveCity(newCityName);
