@@ -13,6 +13,8 @@ export enum CitiesList {
   Dusseldorf = 'Dusseldorf',
 }
 
+export const LOGIN_TOKEN_NAME = 'six-sities-token';
+
 export const MarkerUrl = {
   DEFAULT: '/img/pin.svg',
   CURRENT: '/img/pin-active.svg',

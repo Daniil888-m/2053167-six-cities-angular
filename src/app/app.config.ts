@@ -1,18 +1,35 @@
-import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  isDevMode,
+  provideAppInitializer,
+  inject,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideStore } from '@ngrx/store';
+import { provideStore, Store } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
+import { offerReducer } from './store/offer/offer.reducer';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './common/services/auth.interceptor';
+import { LoginEffects } from './store/user/user.effects';
+import { appInit } from './store/user/user.actions';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore(),
+    provideStore({ offer: offerReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(),
-    provideRouterStore()
-],
+    provideEffects([LoginEffects]),
+    provideRouterStore(),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    provideAppInitializer(() => {
+      const store = inject(Store);
+
+      store.dispatch(appInit());
+    }),
+  ],
 };
