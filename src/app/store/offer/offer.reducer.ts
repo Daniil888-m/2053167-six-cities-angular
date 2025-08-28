@@ -7,6 +7,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addReview,
   resetFormData,
+  setOfferDetailsFailed,
   setOfferDetailsSuccess,
 } from './offer.actions';
 
@@ -26,6 +27,7 @@ export const offerReducer = createReducer(
   initialState,
   on(setOfferDetailsSuccess, (state, { reviews, nearbyOffers, offer }) => {
     return {
+      ...state,
       nearbyOffers: nearbyOffersAdapter.setAll(
         nearbyOffers,
         state.nearbyOffers
@@ -43,5 +45,11 @@ export const offerReducer = createReducer(
   }),
   on(resetFormData, () => {
     return initialState;
+  }),
+  on(setOfferDetailsFailed, (state) => {
+    return {
+      ...state,
+      status: RequestStatus.Failed,
+    };
   })
 );

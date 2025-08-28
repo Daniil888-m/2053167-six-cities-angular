@@ -7,6 +7,9 @@ export const setOfferDetailsSuccess = createAction(
   '[Offer Details API] Set Offer Details Success',
   props<{ offer: OfferFull; nearbyOffers: Offer[]; reviews: ReviewType[] }>()
 );
+export const setOfferDetailsFailed = createAction(
+  '[Offer Details API] Set Offer Details Success'
+);
 
 export const loadOfferDetails = createAction(
   '[Offer Component] load full offer data',

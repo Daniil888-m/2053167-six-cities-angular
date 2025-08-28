@@ -17,14 +17,15 @@ import { authInterceptor } from './common/services/auth.interceptor';
 import { LoginEffects } from './store/user/user.effects';
 import { appInit } from './store/user/user.actions';
 import { userReducer } from './store/user/user.reducer';
+import { OfferEffects } from './store/offer/offer.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore({ offer: offerReducer, user: userReducer }),
+    provideStore({ fullOffer: offerReducer, user: userReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects([LoginEffects]),
+    provideEffects([LoginEffects, OfferEffects]),
     provideRouterStore(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAppInitializer(() => {
