@@ -4,25 +4,34 @@ import {
   appInit,
   checkLogin,
   login,
-  setUserAuthStatus,
+  setFavorites,
   setUserInfo,
+  setUserNoAuth,
 } from './user.actions';
-import { catchError, exhaustMap, map, of } from 'rxjs';
-import { LoginService } from '../../common/services/login.service';
-import { AuthStatus, LoginData, UserInfo } from '../../common/types/types';
+import { catchError, concatMap, EMPTY, exhaustMap, map, of, tap } from 'rxjs';
+import { UserService } from '../../common/services/user.service';
+import { LoginData, UserInfo } from '../../common/types/types';
+import { Offer } from '../../mocks/offers';
+import { Router } from '@angular/router';
+import { TokenService } from '../../common/services/token.service';
 
 @Injectable()
 export class LoginEffects {
   private actions$ = inject(Actions);
-  private loginService = inject(LoginService);
+  private userService = inject(UserService);
+  private tokenService = inject(TokenService);
+  private router = inject(Router);
 
   checkLogin$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(checkLogin),
       exhaustMap(() => {
-        return this.loginService.checklogin$().pipe(
-          map(() => setUserAuthStatus({ status: AuthStatus.Auth })),
-          catchError(() => of(setUserAuthStatus({ status: AuthStatus.NoAuth })))
+        return this.userService.checklogin$().pipe(
+          tap((userInfo: UserInfo) =>
+            this.tokenService.setToken(userInfo.token)
+          ),
+          map((userInfo: UserInfo) => setUserInfo(userInfo)),
+          catchError(() => of(setUserNoAuth()))
         );
       })
     );
@@ -31,12 +40,28 @@ export class LoginEffects {
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(login),
-      exhaustMap((data: LoginData) => {
-        return this.loginService.login$(data).pipe(
+      exhaustMap(({ email, password }: LoginData) => {
+        return this.userService.login$({ email, password }).pipe(
+          tap((userInfo: UserInfo) => {
+            this.router.navigate(['/']);
+            this.tokenService.setToken(userInfo.token);
+          }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => of(setUserAuthStatus({ status: AuthStatus.NoAuth })))
+          catchError(() => of(setUserNoAuth()))
         );
       })
+    );
+  });
+
+  getFavoritesAfterLogin$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(setUserInfo),
+      concatMap(() =>
+        this.userService.fetchFavorites$().pipe(
+          map((favorites: Offer[]) => setFavorites({ favorites })),
+          catchError(() => EMPTY)
+        )
+      )
     );
   });
 

@@ -3,7 +3,7 @@ import { userState } from './user.model';
 import { AuthStatus } from '../../common/types/types';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { Offer } from '../../mocks/offers';
-import { setFavorites, setUserAuthStatus, setUserInfo } from './user.actions';
+import { setFavorites, setUserInfo, setUserNoAuth } from './user.actions';
 
 const favoritesAdapter: EntityAdapter<Offer> = createEntityAdapter<Offer>();
 
@@ -37,10 +37,10 @@ export const userReducer = createReducer(
       authStatus: AuthStatus.Auth,
     };
   }),
-  on(setUserAuthStatus, (state, { status }) => {
+  on(setUserNoAuth, (state) => {
     return {
       ...state,
-      authStatus: status,
+      authStatus: AuthStatus.NoAuth,
     };
   })
 );

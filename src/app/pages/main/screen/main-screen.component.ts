@@ -6,7 +6,7 @@ import {
   OnDestroy,
   signal,
 } from '@angular/core';
-import { Offer, offersMock } from '../../../mocks/offers';
+import { Offer } from '../../../mocks/offers';
 import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 import { ActiveCardService } from '../services/active-card.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,19 +14,23 @@ import { MapComponent } from '../../../common/components/map/map.component';
 import { ActiveCityService } from '../../../common/services/active-city.service';
 import { CitiesList, DEFAULT_ACTIVE_CITY } from '../../../common/consts';
 import { filterByCity } from '../../../utils/utils';
+import { OffersService } from '../services/offers.service';
+import { SpinnerComponent } from '../../../common/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-main-screen',
-  imports: [OffersListComponent, MapComponent],
+  imports: [OffersListComponent, MapComponent, SpinnerComponent],
   templateUrl: './main-screen.component.html',
   styleUrl: './main-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ActiveCardService],
+  providers: [ActiveCardService, OffersService],
 })
 export class MainScreenComponent implements OnDestroy {
   public Cities = CitiesList;
   private activeOfferService = inject(ActiveCardService);
   private activeCityService = inject(ActiveCityService);
+  private offersService = inject(OffersService);
+  public isLoading = signal(true);
 
   public activeOffer = signal<Offer | null>(null);
   onCityClick = (newCityName: CitiesList) => {
@@ -35,15 +39,17 @@ export class MainScreenComponent implements OnDestroy {
 
   public activeCity = signal<CitiesList>(DEFAULT_ACTIVE_CITY);
   public activeCityOffers = computed(() =>
-    filterByCity(this.items, this.activeCity())
+    filterByCity(this.items(), this.activeCity())
   );
 
-  public items: Offer[];
+  public items = signal<Offer[]>([]);
   private destroy$ = new Subject<void>();
 
   constructor() {
-    this.items = offersMock;
-
+    this.offersService.fetchOffers$().subscribe((offers: Offer[]) => {
+      this.items.set(offers);
+      this.isLoading.set(false);
+    });
     this.activeOfferService.current$
       .asObservable()
       .pipe(takeUntil(this.destroy$))

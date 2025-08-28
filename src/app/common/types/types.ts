@@ -86,4 +86,5 @@ export enum RequestRoute {
   Offers = `${SERVER_URL}/six-cities/offers`,
   Comments = `${SERVER_URL}/six-cities/comments`,
   Logout = `${SERVER_URL}/six-cities/logout`,
+  Favorites = `${SERVER_URL}/six-cities/favorite`,
 }

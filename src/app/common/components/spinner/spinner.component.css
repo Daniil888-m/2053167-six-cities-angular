@@ -1,3 +1,7 @@
+:host {
+  margin: 100px auto;
+}
+
 .loader {
   position: relative;
   width: 120px;
@@ -41,7 +45,7 @@
   left: 50%;
   top: 50%;
   box-sizing: border-box;
-  border: 7px solid #ff3d00;
+  border: 7px solid #4481c3;
   border-radius: 50%;
   animation: rotate 0.5s linear infinite;
 }

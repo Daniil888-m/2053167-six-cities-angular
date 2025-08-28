@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +13,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../../common/services/user.service';
+import { Store } from '@ngrx/store';
+import { login } from '../../store/user/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +23,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UserService],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   private fb = inject(FormBuilder);
+  private store = inject(Store);
   public loginForm: FormGroup;
+  public isDataSending = signal(false);
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -34,7 +46,12 @@ export class LoginComponent {
 
   public onSubmit(): void {
     const formData = this.loginForm.value;
-
+    this.store.dispatch(login(formData));
+    this.isDataSending.set(true);
     console.log(formData);
+  }
+
+  public ngOnDestroy(): void {
+    this.isDataSending.set(false);
   }
 }

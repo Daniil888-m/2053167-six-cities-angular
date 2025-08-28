@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ActiveCityService {
   public current$ = new BehaviorSubject<CitiesList>(DEFAULT_ACTIVE_CITY);
 
-  changeActiveCity(newCityName: CitiesList) {
+  public changeActiveCity(newCityName: CitiesList) {
     this.current$.next(newCityName);
   }
 }

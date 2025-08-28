@@ -1,6 +1,8 @@
 <article class=" place-card" [class.cities__card]="!isNearbyCard()" [class.near-places__card]="isNearbyCard()" (mouseenter)="onMouseEnter()" (mouseleave)=" onMouseLeave()">
   @if(offer().isPremium) {
-  <span>Premium</span>
+  <div class="place-card__mark">
+    <span>Premium</span>
+  </div>
   }
   <div class="place-card__image-wrapper" [class.cities__image-wrapper]="!isNearbyCard()" [class.near-places__image-wrapper]="isNearbyCard()">
     <a [routerLink]="['/', 'offer', offer().id]">
