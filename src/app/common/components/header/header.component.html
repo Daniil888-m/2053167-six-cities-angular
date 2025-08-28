@@ -10,7 +10,7 @@
         <ul class="header__nav-list">
           @if(!userInfo) {
           <li class="header__nav-item user">
-            <a class="header__nav-link header__nav-link--profile" href="#">
+            <a class="header__nav-link header__nav-link--profile" [routerLink]="['/login']">
               <div class="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span class="header__login">Sign in</span>
@@ -19,10 +19,10 @@
           } @else {
           <li class="header__nav-item user">
             <a class="header__nav-link header__nav-link--profile" [routerLink]="['/', 'favorites']">
-              <div class="header__avatar-wrapper user__avatar-wrapper">
+              <div class="header__avatar-wrapper user__avatar-wrapper" [style.backgroundImage]="`url(${userInfo.avatarUrl})`">
               </div>
-              <span class="header__user-name user__name">{{userInfo().email}}</span>
-              <span class="header__favorite-count">{{userInfo().favoritesOffers.ids.length}}</span>
+              <span class="header__user-name user__name">{{userInfo.email}}</span>
+              <span class="header__favorite-count">{{userInfo.favoritesOffers.ids.length}}</span>
             </a>
           </li>
           <li class="header__nav-item">

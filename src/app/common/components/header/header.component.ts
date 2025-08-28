@@ -1,14 +1,8 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getUserFeature } from '../../../store/user/user.selectors';
-import { userState } from '../../../store/user/user.model';
+import { UserState } from '../../../store/user/user.model';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +12,14 @@ import { userState } from '../../../store/user/user.model';
 })
 export class HeaderComponent implements OnInit {
   private store = inject(Store);
-  public userInfo?: WritableSignal<userState>;
+  private cdr = inject(ChangeDetectorRef);
+  public userInfo?: UserState;
 
   public ngOnInit(): void {
     const userData$ = this.store.select(getUserFeature);
     userData$.subscribe((userInfo) => {
-      this.userInfo = signal<userState>(userInfo);
+      this.userInfo = userInfo;
+      this.cdr.detectChanges();
     });
   }
 }

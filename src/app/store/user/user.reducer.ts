@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { userState } from './user.model';
+import { UserState } from './user.model';
 import { AuthStatus } from '../../common/types/types';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { Offer } from '../../mocks/offers';
@@ -7,7 +7,7 @@ import { setFavorites, setUserInfo, setUserNoAuth } from './user.actions';
 
 const favoritesAdapter: EntityAdapter<Offer> = createEntityAdapter<Offer>();
 
-const initialState: userState = {
+const initialState: UserState = {
   name: '',
   avatarUrl: '',
   isPro: false,
