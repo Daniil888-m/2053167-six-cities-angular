@@ -18,6 +18,7 @@ import { LoginEffects } from './store/user/user.effects';
 import { appInit } from './store/user/user.actions';
 import { userReducer } from './store/user/user.reducer';
 import { OfferEffects } from './store/offer/offer.effects';
+import { httpInterceptor } from './common/services/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects([LoginEffects, OfferEffects]),
     provideRouterStore(),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([httpInterceptor, authInterceptor])),
     provideAppInitializer(() => {
       const store = inject(Store);
 
