@@ -109,7 +109,7 @@
         <section class="offer__reviews reviews">
           <h2 class="reviews__title">Reviews &middot; <span class="reviews__amount">{{reviews.length}}</span></h2>
           <app-reviews-list [reviews]="reviews" />
-          <app-review-form />
+          <app-review-form [offerId]="offer.id" />
         </section>
         }
       </div>

@@ -5,7 +5,7 @@ import { OfferState } from './offer.model';
 import { RequestStatus } from '../../common/types/types';
 import { createReducer, on } from '@ngrx/store';
 import {
-  addReview,
+  addReviewSuccess,
   resetFormData,
   setOfferDetailsFailed,
   setOfferDetailsSuccess,
@@ -37,7 +37,7 @@ export const offerReducer = createReducer(
       status: RequestStatus.Success,
     };
   }),
-  on(addReview, (state, { review }) => {
+  on(addReviewSuccess, (state, { review }) => {
     return {
       ...state,
       reviews: reviewsAdapter.addOne(review, state.reviews),

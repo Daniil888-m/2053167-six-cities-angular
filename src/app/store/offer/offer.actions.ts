@@ -18,6 +18,11 @@ export const loadOfferDetails = createAction(
 
 export const addReview = createAction(
   '[Reviews Component] add review',
+  props<{ review: { comment: string; rating: number }; offerId: string }>()
+);
+
+export const addReviewSuccess = createAction(
+  '[Reviews Component] add review success',
   props<{ review: ReviewType }>()
 );
 

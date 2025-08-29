@@ -1,11 +1,21 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  addReview,
+  addReviewSuccess,
   loadOfferDetails,
   setOfferDetailsFailed,
   setOfferDetailsSuccess,
 } from './offer.actions';
-import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
+import {
+  catchError,
+  EMPTY,
+  exhaustMap,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+} from 'rxjs';
 import { OfferService } from '../../common/services/offer.service';
 import { OfferFull } from '../../mocks/offer';
 import { Offer } from '../../mocks/offers';
@@ -33,6 +43,22 @@ export class OfferEffects {
             }) => setOfferDetailsSuccess(data)
           ),
           catchError(() => of(setOfferDetailsFailed()))
+        )
+      )
+    );
+  });
+
+  addReviewEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addReview),
+      exhaustMap(({ review, offerId }) =>
+        this.offerService.addReview$(review, offerId).pipe(
+          map((newReview: ReviewType) => {
+            return addReviewSuccess({ review: newReview });
+          }),
+          catchError(() => {
+            return EMPTY;
+          })
         )
       )
     );

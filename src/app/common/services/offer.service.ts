@@ -18,4 +18,14 @@ export class OfferService {
   public reviews$(offerId: string): Observable<ReviewType[]> {
     return this.http.get<ReviewType[]>(`${RequestRoute.Comments}/${offerId}`);
   }
+
+  public addReview$(
+    review: { comment: string; rating: number },
+    offerId: string
+  ): Observable<ReviewType> {
+    return this.http.post<ReviewType>(
+      `${RequestRoute.Comments}/${offerId}`,
+      review
+    );
+  }
 }
