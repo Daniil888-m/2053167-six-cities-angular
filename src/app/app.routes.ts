@@ -5,6 +5,7 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { OfferComponent } from './pages/offer/offer.component';
 import { NotFoundPageComponent } from './pages/not-found/not-found-page.component';
 import { AuthGuard } from './common/route-guards/auth.guard';
+import { NoAuthGuard } from './common/route-guards/no-auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'favorites',

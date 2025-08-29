@@ -45,8 +45,8 @@ export class LoginEffects {
       exhaustMap(({ email, password }: LoginData) => {
         return this.userService.login$({ email, password }).pipe(
           tap((userInfo: UserInfo) => {
-            this.router.navigate(['/']);
             this.tokenService.setToken(userInfo.token);
+            this.router.navigate(['/']);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
           catchError(() => of(setUserNoAuth()))
@@ -60,9 +60,6 @@ export class LoginEffects {
       ofType(logout),
       exhaustMap(() => {
         return this.userService.logout$().pipe(
-          tap(() => {
-            this.tokenService.dropToken();
-          }),
           map(() => resetUserData()),
           catchError(() => of(setUserNoAuth()))
         );

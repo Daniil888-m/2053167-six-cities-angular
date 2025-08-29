@@ -76,7 +76,7 @@ export enum RequestStatus {
 export enum AuthStatus {
   Unknown = 'UNKNOWN',
   NoAuth = 'UNAUTHORIZED',
-  Auth = 'SUCCESS',
+  Auth = 'AUTHORIZED',
 }
 
 export enum RequestRoute {
