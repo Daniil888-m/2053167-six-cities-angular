@@ -7,7 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { CityInfo } from '../../../mocks/offers';
-import { Offer } from '../../types/types';
+import { Offer, OfferFull } from '../../types/types';
 import 'leaflet/dist/leaflet.css';
 import { MapService } from './services/map.service';
 
@@ -19,15 +19,17 @@ import { MapService } from './services/map.service';
   providers: [MapService],
 })
 export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
-  cityInfo = input.required<CityInfo>();
+  cityInfo = input.required<CityInfo | null>();
   activeOffer = input.required<Offer | { id: string } | null>();
-  currentOffers = input.required<Partial<Offer>[]>();
+  currentOffers = input.required<(Offer | OfferFull)[]>();
   private mapService = inject(MapService);
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.mapService.initMap(this.cityInfo());
-      this.mapService.renderMarkers(this.currentOffers(), this.activeOffer());
+      if (this.cityInfo()) {
+        this.mapService.initMap(this.cityInfo() as CityInfo);
+        this.mapService.renderMarkers(this.currentOffers(), this.activeOffer());
+      }
     }, 100);
   }
 

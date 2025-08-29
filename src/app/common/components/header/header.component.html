@@ -8,12 +8,14 @@
       </div>
       <nav class="header__nav">
         <ul class="header__nav-list">
+          @if(userData$ | async; as userData) {
+          @if(userData.authStatus === authStatusEnum.Auth) {
           <li class="header__nav-item user">
             <a class="header__nav-link header__nav-link--profile" [routerLink]="['/', 'favorites']">
-              <div class="header__avatar-wrapper user__avatar-wrapper">
+              <div class="header__avatar-wrapper user__avatar-wrapper" [style.backgroundImage]="`url(${userData.avatarUrl})`">
               </div>
-              <span class="header__user-name user__name">Oliver.conner&#64;gmail.com</span>
-              <span class="header__favorite-count">3</span>
+              <span class="header__user-name user__name">{{userData.email}}</span>
+              <span class="header__favorite-count">{{userData.favoritesOffers.ids.length}}</span>
             </a>
           </li>
           <li class="header__nav-item">
@@ -21,6 +23,22 @@
               <span class="header__signout">Sign out</span>
             </a>
           </li>
+          } @else {
+          <li class="header__nav-item user">
+            <a class="header__nav-link header__nav-link--profile" [routerLink]="['/login']">
+              <div class="header__avatar-wrapper user__avatar-wrapper">
+              </div>
+              <span class="header__login">Sign in</span>
+            </a>
+          </li>
+          }
+
+          }
+
+
+
+
+
         </ul>
       </nav>
     </div>

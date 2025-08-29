@@ -36,6 +36,9 @@
       </ul>
     </section>
   </div>
+  @if(this.isLoading()) {
+  <app-spinner></app-spinner>
+  } @else {
   <div class="cities">
     @if(!activeCityOffers().length) {
     <div class="cities__places-container cities__places-container--empty container">
@@ -83,4 +86,6 @@
     }
 
   </div>
+  }
+
 </main>

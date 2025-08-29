@@ -1,9 +1,3 @@
-export enum AuthorizationStatus {
-  Auth,
-  NoAuth,
-  Unknown,
-}
-
 export enum CitiesList {
   Paris = 'Paris',
   Cologne = 'Cologne',
@@ -12,6 +6,8 @@ export enum CitiesList {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf',
 }
+
+export const LOGIN_TOKEN_NAME = 'six-sities-token';
 
 export const MarkerUrl = {
   DEFAULT: '/img/pin.svg',

@@ -1,4 +1,7 @@
 <main class="page__main page__main--offer">
+  @if(!offer) {
+  <app-spinner></app-spinner>
+  } @else {
   <section class="offer">
     <div class="offer__gallery-container container">
       <div class="offer__gallery">
@@ -126,8 +129,10 @@
     </div>
     <section class="">
       <div class="container offer__map">
+        @if(offer.city) {
 
-        <app-map [activeOffer]="offer" [cityInfo]="offer.city" [currentOffers]="getMapOffers()" />
+        <app-map [activeOffer]="offer" [cityInfo]="offer.city || null" [currentOffers]="getMapOffers()" />
+        }
       </div>
     </section>
   </section>
@@ -137,4 +142,6 @@
       <app-nearby-list [offers]="nearbyOffers" />
     </section>
   </div>
+  }
+
 </main>
