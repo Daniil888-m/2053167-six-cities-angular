@@ -16,6 +16,9 @@ export class UserService {
   public login$ = (data: LoginData): Observable<UserInfo> => {
     return this.http.post<UserInfo>(RequestRoute.Login, data);
   };
+  public logout$ = (): Observable<UserInfo> => {
+    return this.http.delete<UserInfo>(RequestRoute.Logout);
+  };
 
   public fetchFavorites$ = (): Observable<Offer[]> => {
     return this.http.get<Offer[]>(RequestRoute.Favorites);

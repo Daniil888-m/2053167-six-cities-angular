@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getUserFeature } from '../../../store/user/user.selectors';
 import { UserState } from '../../../store/user/user.model';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AuthStatus } from '../../types/types';
 

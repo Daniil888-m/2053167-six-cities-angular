@@ -4,6 +4,8 @@ import {
   appInit,
   checkLogin,
   login,
+  logout,
+  resetUserData,
   setFavorites,
   setUserInfo,
   setUserNoAuth,
@@ -48,6 +50,22 @@ export class LoginEffects {
             this.tokenService.setToken(userInfo.token);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
+          catchError(() => of(setUserNoAuth()))
+        );
+      })
+    );
+  });
+
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logout),
+      exhaustMap(() => {
+        return this.userService.logout$().pipe(
+          tap(() => {
+            this.router.navigate(['/']);
+            this.tokenService.dropToken();
+          }),
+          map(() => resetUserData()),
           catchError(() => of(setUserNoAuth()))
         );
       })

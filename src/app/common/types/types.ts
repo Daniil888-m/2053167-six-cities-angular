@@ -67,8 +67,6 @@ export interface LoginData {
   password: string;
 }
 
-const SERVER_URL = 'https://15.design.htmlacademy.pro';
-
 export enum RequestStatus {
   Pending = 'PENDING',
   Idle = 'IDLE',
@@ -82,9 +80,9 @@ export enum AuthStatus {
 }
 
 export enum RequestRoute {
-  Login = `${SERVER_URL}/six-cities/login`,
-  Offers = `${SERVER_URL}/six-cities/offers`,
-  Comments = `${SERVER_URL}/six-cities/comments`,
-  Logout = `${SERVER_URL}/six-cities/logout`,
-  Favorites = `${SERVER_URL}/six-cities/favorite`,
+  Login = `login`,
+  Offers = `offers`,
+  Comments = `comments`,
+  Logout = `logout`,
+  Favorites = `favorite`,
 }

@@ -21,5 +21,7 @@ export const setUserInfo = createAction(
 export const setUserNoAuth = createAction(
   '[User] set user authorization status to not authorized'
 );
+export const logout = createAction('[User] logout');
+export const resetUserData = createAction('[User] reset user data');
 
 export const appInit = createAction('[User] start loading user data');
