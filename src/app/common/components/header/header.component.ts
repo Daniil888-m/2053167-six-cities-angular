@@ -1,25 +1,24 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getUserFeature } from '../../../store/user/user.selectors';
 import { UserState } from '../../../store/user/user.model';
+import { Observable, tap } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { AuthStatus } from '../../types/types';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   private store = inject(Store);
-  private cdr = inject(ChangeDetectorRef);
-  public userInfo?: UserState;
+  public userData$?: Observable<UserState>;
+  public authStatusEnum = AuthStatus;
 
-  public ngOnInit(): void {
-    const userData$ = this.store.select(getUserFeature);
-    userData$.subscribe((userInfo) => {
-      this.userInfo = userInfo;
-      this.cdr.detectChanges();
-    });
+  constructor() {
+    this.userData$ = this.store.select(getUserFeature).pipe(tap(console.log));
   }
 }

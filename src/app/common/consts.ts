@@ -1,9 +1,3 @@
-export enum AuthorizationStatus {
-  Auth,
-  NoAuth,
-  Unknown,
-}
-
 export enum CitiesList {
   Paris = 'Paris',
   Cologne = 'Cologne',
