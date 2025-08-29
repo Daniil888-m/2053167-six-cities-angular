@@ -19,6 +19,6 @@ export class HeaderComponent {
   public authStatusEnum = AuthStatus;
 
   constructor() {
-    this.userData$ = this.store.select(getUserFeature).pipe(tap(console.log));
+    this.userData$ = this.store.select(getUserFeature);
   }
 }

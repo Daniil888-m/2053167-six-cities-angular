@@ -60,8 +60,6 @@ export class OfferScreenComponent implements OnInit {
       this.cdr.detectChanges();
     });
     this.store.select(getNearbyOffers).subscribe((nearbyData) => {
-      console.log(nearbyData, 'nearby');
-
       this.nearbyOffers = nearbyData;
       this.cdr.detectChanges();
     });

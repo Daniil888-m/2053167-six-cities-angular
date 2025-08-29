@@ -27,11 +27,12 @@ export class LoginEffects {
       ofType(checkLogin),
       exhaustMap(() => {
         return this.userService.checklogin$().pipe(
-          tap((userInfo: UserInfo) =>
-            this.tokenService.setToken(userInfo.token)
-          ),
+          tap((userInfo: UserInfo) => {
+            console.log('token isSet');
+            this.tokenService.setToken(userInfo.token);
+          }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => of(setUserNoAuth()))
+          catchError(() => EMPTY)
         );
       })
     );

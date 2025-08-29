@@ -48,7 +48,6 @@ export class LoginComponent implements OnDestroy {
     const formData = this.loginForm.value;
     this.store.dispatch(login(formData));
     this.isDataSending.set(true);
-    console.log(formData);
   }
 
   public ngOnDestroy(): void {
