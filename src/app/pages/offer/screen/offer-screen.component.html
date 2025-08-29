@@ -43,10 +43,10 @@
         </div>
         <div class="offer__rating rating">
           <div class="offer__stars rating__stars">
-            <span style="width: 80%"></span>
+            <span [style.width]="offer.rating | ratingValue"></span>
             <span class="visually-hidden">Rating</span>
           </div>
-          <span class="offer__rating-value rating__value">{{offer.rating | ratingValue}}</span>
+          <span class="offer__rating-value rating__value">{{offer.rating}}</span>
         </div>
         <ul class="offer__features">
           <li class="offer__feature offer__feature--entire">
