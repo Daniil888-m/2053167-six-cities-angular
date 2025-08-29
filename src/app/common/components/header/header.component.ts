@@ -6,10 +6,11 @@ import { UserState } from '../../../store/user/user.model';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AuthStatus } from '../../types/types';
+import { LogoutBtnDirective } from './directives/logout-btn.directive';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, AsyncPipe],
+  imports: [RouterLink, AsyncPipe, LogoutBtnDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

@@ -30,7 +30,6 @@ export class LoginEffects {
       exhaustMap(() => {
         return this.userService.checklogin$().pipe(
           tap((userInfo: UserInfo) => {
-            console.log('token isSet');
             this.tokenService.setToken(userInfo.token);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
@@ -62,7 +61,6 @@ export class LoginEffects {
       exhaustMap(() => {
         return this.userService.logout$().pipe(
           tap(() => {
-            this.router.navigate(['/']);
             this.tokenService.dropToken();
           }),
           map(() => resetUserData()),
