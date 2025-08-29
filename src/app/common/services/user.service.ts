@@ -23,4 +23,8 @@ export class UserService {
   public fetchFavorites$ = (): Observable<Offer[]> => {
     return this.http.get<Offer[]>(RequestRoute.Favorites);
   };
+
+  public addOrRemoveFavorite$ = (): Observable<Offer[]> => {
+    return this.http.get<Offer[]>(RequestRoute.Favorites);
+  };
 }

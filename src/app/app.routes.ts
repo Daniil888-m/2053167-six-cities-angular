@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { OfferComponent } from './pages/offer/offer.component';
 import { NotFoundPageComponent } from './pages/not-found/not-found-page.component';
-import { AuthGuard } from './common/auth.guard';
+import { AuthGuard } from './common/route-guards/auth.guard';
 
 export const routes: Routes = [
   {

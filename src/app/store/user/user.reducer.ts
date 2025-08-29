@@ -10,7 +10,8 @@ import {
   setUserNoAuth,
 } from './user.actions';
 
-const favoritesAdapter: EntityAdapter<Offer> = createEntityAdapter<Offer>();
+export const favoritesAdapter: EntityAdapter<Offer> =
+  createEntityAdapter<Offer>();
 
 const initialState: UserState = {
   name: '',

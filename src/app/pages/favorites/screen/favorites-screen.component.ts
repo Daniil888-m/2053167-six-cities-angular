@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { favoritesMock } from '../../../mocks/offers';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Offer } from '../../../mocks/offers';
 import { FavoriteListComponent } from '../favorite-list/favorite-list.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectUserFavorites } from '../../../store/user/user.selectors';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-favorites-screen',
-  imports: [FavoriteListComponent],
+  imports: [FavoriteListComponent, AsyncPipe],
   templateUrl: './favorites-screen.component.html',
   styleUrl: './favorites-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesScreenComponent {
-  public offers = favoritesMock;
+  private store = inject(Store);
+
+  public offers$: Observable<Offer[]>;
+
+  constructor() {
+    this.offers$ = this.store.select(selectUserFavorites);
+  }
 }
