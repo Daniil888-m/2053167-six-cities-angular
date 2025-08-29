@@ -22,6 +22,10 @@ import {
   getNearbyOffers,
   getReviews,
 } from '../../../store/offer/offer.selectors';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { RatingPipe } from '../../../common/pipes/rating.pipe';
+import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-offer-screen',
@@ -31,6 +35,9 @@ import {
     MapComponent,
     NearbyListComponent,
     SpinnerComponent,
+    AsyncPipe,
+    RatingPipe,
+    CapitalizePipe,
   ],
   templateUrl: './offer-screen.component.html',
   styleUrl: './offer-screen.component.css',
@@ -41,13 +48,16 @@ export class OfferScreenComponent implements OnInit {
   private store = inject(Store);
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
-  public reviews: ReviewType[] = [];
-  public nearbyOffers: Offer[] = [];
-  public offer: OfferFull | null = null;
+  public reviews$?: Observable<ReviewType[]>;
+  public nearbyOffers$?: Observable<Offer[]>;
+  public offer$?: Observable<OfferFull | null>;
 
-  public getMapOffers(): (Offer | OfferFull)[] {
-    if (this.offer) {
-      return [...this.nearbyOffers, this.offer];
+  public getMapOffers(
+    nearbyOffers: Offer[],
+    offer: OfferFull
+  ): (Offer | OfferFull)[] {
+    if (nearbyOffers.length) {
+      return [...nearbyOffers.slice(0, 3), offer];
     } else return [];
   }
 
@@ -55,17 +65,8 @@ export class OfferScreenComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.store.dispatch(loadOfferDetails({ offerId: params['id'] }));
     });
-    this.store.select(getOfferData).subscribe((offerData) => {
-      this.offer = offerData;
-      this.cdr.detectChanges();
-    });
-    this.store.select(getNearbyOffers).subscribe((nearbyData) => {
-      this.nearbyOffers = nearbyData;
-      this.cdr.detectChanges();
-    });
-    this.store.select(getReviews).subscribe((reviewsData) => {
-      this.reviews = reviewsData;
-      this.cdr.detectChanges();
-    });
+    this.offer$ = this.store.select(getOfferData);
+    this.nearbyOffers$ = this.store.select(getNearbyOffers);
+    this.reviews$ = this.store.select(getReviews);
   }
 }
