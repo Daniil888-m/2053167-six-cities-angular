@@ -23,7 +23,7 @@ import { SpinnerComponent } from '../../../common/components/spinner/spinner.com
   templateUrl: './main-screen.component.html',
   styleUrl: './main-screen.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ActiveCardService, OffersService],
+  providers: [ActiveCardService],
 })
 export class MainScreenComponent implements OnDestroy {
   public Cities = CitiesList;
@@ -31,6 +31,7 @@ export class MainScreenComponent implements OnDestroy {
   private activeCityService = inject(ActiveCityService);
   private offersService = inject(OffersService);
   public isLoading = signal(true);
+  public isFailed = signal(false);
 
   public activeOffer = signal<Offer | null>(null);
   onCityClick = (newCityName: CitiesList) => {
@@ -50,6 +51,9 @@ export class MainScreenComponent implements OnDestroy {
       this.items.set(offers);
       this.isLoading.set(false);
     });
+
+    console.log(this.offersService.status);
+
     this.activeOfferService.current$
       .asObservable()
       .pipe(takeUntil(this.destroy$))
