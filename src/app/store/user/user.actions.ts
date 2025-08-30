@@ -12,6 +12,22 @@ export const setFavorites = createAction(
   '[User] set favorites',
   props<{ favorites: Offer[] }>()
 );
+export const addFavorite = createAction(
+  '[User] fetch to add favorite',
+  props<{ favoriteId: string }>()
+);
+export const addFavoriteSuccess = createAction(
+  '[User] add favorite success',
+  props<{ offer: Offer }>()
+);
+export const removeFavorite = createAction(
+  '[User] fetch to remove favorite',
+  props<{ favoriteId: string }>()
+);
+export const removeFavoriteSuccess = createAction(
+  '[User] remove favorite',
+  props<{ offer: Offer }>()
+);
 
 export const setUserInfo = createAction(
   '[User] set user info',

@@ -4,6 +4,8 @@ import { AuthStatus } from '../../common/types/types';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { Offer } from '../../mocks/offers';
 import {
+  addFavoriteSuccess,
+  removeFavoriteSuccess,
   resetUserData,
   setFavorites,
   setUserInfo,
@@ -54,5 +56,27 @@ export const userReducer = createReducer(
       ...initialState,
       authStatus: AuthStatus.NoAuth,
     };
+  }),
+
+  on(addFavoriteSuccess, (state, { offer }) => {
+    return {
+      ...state,
+      favoritesOffers: favoritesAdapter.addOne(offer, state.favoritesOffers),
+    };
+  }),
+  on(removeFavoriteSuccess, (state, { offer }) => {
+    return {
+      ...state,
+      favoritesOffers: favoritesAdapter.addOne(offer, state.favoritesOffers),
+    };
   })
+  // on(addFavoriteSuccess, (state, { offer }) => {
+  //   return {
+  //     ...state,
+  //     favoritesOffers: favoritesAdapter.updateOne(
+  //       { id: offer.id, changes: offer },
+  //       state.favoritesOffers
+  //     ),
+  //   };
+  // })
 );
