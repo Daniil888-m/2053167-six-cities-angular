@@ -1,10 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  addFavorite,
+  addFavoriteSuccess,
   appInit,
   checkLogin,
   login,
   logout,
+  removeFavorite,
+  removeFavoriteSuccess,
   resetUserData,
   setFavorites,
   setUserInfo,
@@ -76,6 +80,30 @@ export class LoginEffects {
           catchError(() => EMPTY)
         )
       )
+    );
+  });
+
+  fetchAddFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addFavorite),
+      exhaustMap(({ favoriteId }) => {
+        return this.userService.addFavorite$(favoriteId).pipe(
+          map((offer) => addFavoriteSuccess({ offer })),
+          catchError(() => EMPTY)
+        );
+      })
+    );
+  });
+
+  fetchRemoveFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removeFavorite),
+      exhaustMap(({ favoriteId }) => {
+        return this.userService.removeFavorite$(favoriteId).pipe(
+          map((offer) => removeFavoriteSuccess({ offer })),
+          catchError(() => EMPTY)
+        );
+      })
     );
   });
 

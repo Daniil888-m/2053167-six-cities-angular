@@ -14,6 +14,12 @@ const getUserFavoritesState = createSelector(
   (state: UserState) => state.favoritesOffers
 );
 
-export const { selectAll: selectUserFavorites } = favoritesAdapter.getSelectors(
-  getUserFavoritesState
-);
+export const { selectAll: selectUserFavorites, selectEntities } =
+  favoritesAdapter.getSelectors(getUserFavoritesState);
+
+export const selectFavoriteById = (offerId: string) =>
+  createSelector(
+    getUserFavoritesState,
+    selectEntities,
+    (_, favorites) => favorites[offerId]
+  );

@@ -25,7 +25,7 @@ export const removeFavorite = createAction(
   props<{ favoriteId: string }>()
 );
 export const removeFavoriteSuccess = createAction(
-  '[User] remove favorite',
+  '[User] remove favorite success',
   props<{ offer: Offer }>()
 );
 

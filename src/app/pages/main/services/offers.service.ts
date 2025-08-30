@@ -5,7 +5,7 @@ import {
   RequestRoute,
   RequestStatus,
 } from '../../../common/types/types';
-import { Observable, shareReplay } from 'rxjs';
+import { catchError, Observable, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,7 @@ export class OffersService {
       this.offers$ = this.http
         .get<Offer[]>(RequestRoute.Offers)
         .pipe(shareReplay(1));
+      catchError(() => (this.status = RequestStatus.Failed));
     }
 
     return this.offers$;

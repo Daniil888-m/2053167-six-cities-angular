@@ -18,7 +18,7 @@ import { OffersListComponent } from '../../../common/components/offers-list/offe
 export class FavoriteListComponent {
   public offers = input.required<Offer[]>();
 
-  public uniqueCitites = computed(() => getUniqueCities(this.offers()));
+  public uniqueCitites = computed(() => getUniqueCities(this.offers()).sort());
 
   public getOfferByCity = (city: string) => {
     return this.offers().filter((offer) => offer.city.name === city);
