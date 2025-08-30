@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ReviewFormComponent } from '../components/review-form/review-form.component';
@@ -14,7 +14,10 @@ import { NearbyListComponent } from '../components/nearby-list/nearby-list.compo
 import { ActiveCardService } from '../../main/services/active-card.service';
 import { ReviewType } from '../../../mocks/reviews';
 import { Store } from '@ngrx/store';
-import { loadOfferDetails } from '../../../store/offer/offer.actions';
+import {
+  loadOfferDetails,
+  resetFormData,
+} from '../../../store/offer/offer.actions';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerComponent } from '../../../common/components/spinner/spinner.component';
 import {
@@ -44,10 +47,9 @@ import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
   providers: [ActiveCardService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OfferScreenComponent implements OnInit {
+export class OfferScreenComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private route = inject(ActivatedRoute);
-  private cdr = inject(ChangeDetectorRef);
   public reviews$?: Observable<ReviewType[]>;
   public nearbyOffers$?: Observable<Offer[]>;
   public offer$?: Observable<OfferFull | null>;
@@ -68,5 +70,9 @@ export class OfferScreenComponent implements OnInit {
     this.offer$ = this.store.select(getOfferData);
     this.nearbyOffers$ = this.store.select(getNearbyOffers);
     this.reviews$ = this.store.select(getReviews);
+  }
+
+  public ngOnDestroy(): void {
+    this.store.dispatch(resetFormData());
   }
 }
