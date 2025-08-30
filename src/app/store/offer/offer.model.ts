@@ -10,3 +10,7 @@ export interface OfferState {
   reviews: EntityState<ReviewType>;
   status: RequestStatus;
 }
+
+export function sortByDate(a: ReviewType, b: ReviewType): number {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
+}

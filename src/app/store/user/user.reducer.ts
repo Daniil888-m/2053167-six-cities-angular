@@ -67,7 +67,10 @@ export const userReducer = createReducer(
   on(removeFavoriteSuccess, (state, { offer }) => {
     return {
       ...state,
-      favoritesOffers: favoritesAdapter.addOne(offer, state.favoritesOffers),
+      favoritesOffers: favoritesAdapter.removeOne(
+        offer.id,
+        state.favoritesOffers
+      ),
     };
   })
   // on(addFavoriteSuccess, (state, { offer }) => {

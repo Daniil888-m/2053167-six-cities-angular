@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { ReviewType } from '../../mocks/reviews';
 import { Offer } from '../../mocks/offers';
-import { OfferState } from './offer.model';
+import { OfferState, sortByDate } from './offer.model';
 import { RequestStatus } from '../../common/types/types';
 import { createReducer, on } from '@ngrx/store';
 import {
@@ -12,7 +12,7 @@ import {
 } from './offer.actions';
 
 export const reviewsAdapter: EntityAdapter<ReviewType> =
-  createEntityAdapter<ReviewType>();
+  createEntityAdapter<ReviewType>({ sortComparer: sortByDate });
 export const nearbyOffersAdapter: EntityAdapter<Offer> =
   createEntityAdapter<Offer>();
 
