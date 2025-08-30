@@ -29,6 +29,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { RatingPipe } from '../../../common/pipes/rating.pipe';
 import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
+import { FavoriteItemDirective } from '../../../common/directives/favorite-item.directive';
 
 @Component({
   selector: 'app-offer-screen',
@@ -41,6 +42,7 @@ import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
     AsyncPipe,
     RatingPipe,
     CapitalizePipe,
+    FavoriteItemDirective,
   ],
   templateUrl: './offer-screen.component.html',
   styleUrl: './offer-screen.component.css',

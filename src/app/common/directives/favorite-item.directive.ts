@@ -35,6 +35,9 @@ export class FavoriteItemDirective implements OnInit {
     }
   }
 
+  @HostBinding('class.offer__bookmark-button--active') get isActiveOffer() {
+    return this.isFavorite();
+  }
   @HostBinding('class.place-card__bookmark-button--active') get isActive() {
     return this.isFavorite();
   }
