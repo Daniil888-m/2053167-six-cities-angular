@@ -1,0 +1,15 @@
+<ul class="places__options places__options--custom places__options--opened">
+  <li class="places__option" [class.places__option--active]="activeFilter() === filterOptions.Default" tabindex="0">
+    <button class="option-btn" type="button" (click)="setFilter(filterOptions.Default)">Popular</button>
+
+  </li>
+  <li class="places__option" [class.places__option--active]="activeFilter() === filterOptions.lowToHigh" tabindex="0"><button type="button" class="option-btn"
+      (click)="setFilter(filterOptions.lowToHigh)">Price: low to
+      high</button></li>
+  <li class="places__option" [class.places__option--active]="activeFilter() === filterOptions.highToLow" tabindex="0">
+    <button type="button" class="option-btn" (click)="setFilter(filterOptions.highToLow)">Price: high to low</button>
+  </li>
+  <li class="places__option" [class.places__option--active]="activeFilter() === filterOptions.topRated" tabindex="0">
+    <button type="button" class="option-btn" (click)="setFilter(filterOptions.topRated)">Top rated first</button>
+  </li>
+</ul>

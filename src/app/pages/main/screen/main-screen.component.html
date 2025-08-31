@@ -40,7 +40,7 @@
   <app-spinner></app-spinner>
   } @else {
   <div class="cities">
-    @if(!activeCityOffers().length) {
+    @if(!items().length) {
     <div class="cities__places-container cities__places-container--empty container">
       <section class="cities__no-places">
         <div class="cities__status-wrapper tabs__content">
@@ -56,29 +56,29 @@
     <div class="cities__places-container container">
       <section class="cities__places places">
         <h2 class="visually-hidden">Places</h2>
-        <b class="places__found">{{activeCityOffers().length}} places to stay in {{activeCity()}}</b>
+        <b class="places__found">{{items().length}} places to stay in {{activeCity()}}</b>
         <form class="places__sorting" action="#" method="get">
           <span class="places__sorting-caption">Sort by</span>
-          <span class="places__sorting-type" tabindex="0">
-            Popular
+          <button class="places__sorting-type" tabindex="0" (click)="toggleList()" type="button">
+            @if(activeFilterService.currentSort$ | async; as filterData){
+            {{filterData.label}}
+            }
             <svg class="places__sorting-arrow" width="7" height="4">
               <use xlink:href="#icon-arrow-select"></use>
             </svg>
-          </span>
-          <ul class="places__options places__options--custom places__options--opened">
-            <li class="places__option places__option--active" tabindex="0">Popular</li>
-            <li class="places__option" tabindex="0">Price: low to high</li>
-            <li class="places__option" tabindex="0">Price: high to low</li>
-            <li class="places__option" tabindex="0">Top rated first</li>
-          </ul>
+          </button>
+          @if(isListVisible()) {
+
+          <app-option-list appEveryClick (everyClick)="isListVisible.set(false)"></app-option-list>
+          }
         </form>
-        <app-offers-list [offers]="activeCityOffers()" />
+        <app-offers-list [offers]="items()" />
       </section>
       <div class="cities__right-section">
 
         <section class="map-section">
-          @if(activeCityOffers().length) {
-          <app-map [activeOffer]="activeOffer()" [cityInfo]="activeCityOffers()[0].city" [currentOffers]="activeCityOffers()" />
+          @if(items().length) {
+          <app-map [activeOffer]="activeOffer()" [cityInfo]="items()[0].city" [currentOffers]="items()" />
           }
         </section>
       </div>
