@@ -12,8 +12,6 @@ import { OffersListComponent } from '../../../common/components/offers-list/offe
 import { ActiveCardService } from '../services/active-card.service';
 import { Subject, takeUntil } from 'rxjs';
 import { MapComponent } from '../../../common/components/map/map.component';
-import { ActiveCityService } from '../../../common/services/active-city.service';
-import { CitiesList, DEFAULT_ACTIVE_CITY } from '../../../common/consts';
 import { filterByCity } from '../../../utils/utils';
 import { OffersService } from '../services/offers.service';
 import { SpinnerComponent } from '../../../common/components/spinner/spinner.component';
@@ -21,6 +19,11 @@ import { EveryClickDirective } from '../directives/click-outside-directive.direc
 import { CurrentFilterService } from '../services/filter/filter.service';
 import { OptionListComponent } from '../components/option-list/option-list.component';
 import { AsyncPipe } from '@angular/common';
+import { ActiveCityService } from '../../../common/services/active-city/active-city.service';
+import {
+  CitiesList,
+  DEFAULT_ACTIVE_CITY,
+} from '../../../common/services/active-city/active-city.model';
 
 @Component({
   selector: 'app-main-screen',
