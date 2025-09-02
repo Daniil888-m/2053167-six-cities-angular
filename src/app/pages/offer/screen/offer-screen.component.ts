@@ -30,6 +30,7 @@ import { AsyncPipe } from '@angular/common';
 import { RatingPipe } from '../../../common/pipes/rating.pipe';
 import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
 import { FavoriteItemDirective } from '../../../common/directives/favorite-item.directive';
+import { TokenService } from '../../../common/services/token.service';
 
 @Component({
   selector: 'app-offer-screen',
@@ -52,6 +53,7 @@ import { FavoriteItemDirective } from '../../../common/directives/favorite-item.
 export class OfferScreenComponent implements OnInit, OnDestroy {
   private store = inject(Store);
   private route = inject(ActivatedRoute);
+  private tokenService = inject(TokenService);
   public reviews$?: Observable<ReviewType[]>;
   public nearbyOffers$?: Observable<Offer[]>;
   public offer$?: Observable<OfferFull | null>;
@@ -72,6 +74,10 @@ export class OfferScreenComponent implements OnInit, OnDestroy {
     this.offer$ = this.store.select(getOfferData);
     this.nearbyOffers$ = this.store.select(getNearbyOffers);
     this.reviews$ = this.store.select(getReviews);
+  }
+
+  public isAuthorized() {
+    return Boolean(this.tokenService.getToken());
   }
 
   public ngOnDestroy(): void {
