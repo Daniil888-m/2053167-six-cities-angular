@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Offer } from '../../../mocks/offers';
 import { FavoriteListComponent } from '../favorite-list/favorite-list.component';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectUserFavorites } from '../../../store/user/user.selectors';
 import { AsyncPipe } from '@angular/common';
+import { Offer } from '../../../common/types/types';
 
 @Component({
   selector: 'app-favorites-screen',

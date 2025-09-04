@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { CanActivateFn } from '@angular/router';
-import { TokenService } from '../services/token.service';
+import { TokenService } from '../../common/services/token.service';
 
 export const NoAuthGuard: CanActivateFn = () => {
   const location = inject(Location);

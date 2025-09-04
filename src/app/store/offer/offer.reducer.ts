@@ -1,8 +1,6 @@
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ReviewType } from '../../mocks/reviews';
-import { Offer } from '../../mocks/offers';
 import { OfferState, sortByDate } from './offer.model';
-import { RequestStatus } from '../../common/types/types';
+import { Offer, RequestStatus, ReviewType } from '../../common/types/types';
 import { createReducer, on } from '@ngrx/store';
 import {
   addReviewSuccess,

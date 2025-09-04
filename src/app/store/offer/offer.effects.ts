@@ -17,14 +17,15 @@ import {
   switchMap,
 } from 'rxjs';
 import { OfferService } from '../../common/services/offer.service';
-import { OfferFull } from '../../mocks/offer';
-import { Offer } from '../../mocks/offers';
-import { ReviewType } from '../../mocks/reviews';
+import { Offer, OfferFull, ReviewType } from '../../common/types/types';
+import { ToastifyService } from '../../common/services/toastify/toastify.service';
+import { ErrorText } from '../../common/consts';
 
 Injectable();
 export class OfferEffects {
   private actions$ = inject(Actions);
   private offerService = inject(OfferService);
+  private toastifyService = inject(ToastifyService);
 
   loadOfferDetailed$ = createEffect(() => {
     return this.actions$.pipe(
@@ -42,7 +43,10 @@ export class OfferEffects {
               reviews: ReviewType[];
             }) => setOfferDetailsSuccess(data)
           ),
-          catchError(() => of(setOfferDetailsFailed()))
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.offer);
+            return of(setOfferDetailsFailed());
+          })
         )
       )
     );
@@ -57,6 +61,7 @@ export class OfferEffects {
             return addReviewSuccess({ review: newReview });
           }),
           catchError(() => {
+            this.toastifyService.showToast(ErrorText.addComment);
             return EMPTY;
           })
         )

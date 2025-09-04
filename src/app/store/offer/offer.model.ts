@@ -1,8 +1,10 @@
 import { EntityState } from '@ngrx/entity';
-import { Offer } from '../../mocks/offers';
-import { ReviewType } from '../../mocks/reviews';
-import { OfferFull } from '../../mocks/offer';
-import { RequestStatus } from '../../common/types/types';
+import {
+  Offer,
+  OfferFull,
+  RequestStatus,
+  ReviewType,
+} from '../../common/types/types';
 
 export interface OfferState {
   offer: OfferFull | null;

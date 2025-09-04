@@ -7,12 +7,9 @@ import {
 } from '@angular/core';
 import { ReviewFormComponent } from '../components/review-form/review-form.component';
 import { ReviewsListComponent } from '../components/reviews-list/reviews-list.component';
-import { Offer } from '../../../mocks/offers';
 import { MapComponent } from '../../../common/components/map/map.component';
-import { OfferFull } from '../../../mocks/offer';
 import { NearbyListComponent } from '../components/nearby-list/nearby-list.component';
 import { ActiveCardService } from '../../main/services/active-card.service';
-import { ReviewType } from '../../../mocks/reviews';
 import { Store } from '@ngrx/store';
 import {
   loadOfferDetails,
@@ -31,6 +28,7 @@ import { RatingPipe } from '../../../common/pipes/rating.pipe';
 import { CapitalizePipe } from '../../../common/pipes/capitalize.pipe';
 import { FavoriteItemDirective } from '../../../common/directives/favorite-item.directive';
 import { TokenService } from '../../../common/services/token.service';
+import { Offer, OfferFull, ReviewType } from '../../../common/types/types';
 
 @Component({
   selector: 'app-offer-screen',

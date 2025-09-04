@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Offer } from '../../mocks/offers';
-import { UserInfo } from '../../common/types/types';
+import { Offer, UserInfo } from '../../common/types/types';
 
 export const checkLogin = createAction('[User] check user authorization');
 export const login = createAction(

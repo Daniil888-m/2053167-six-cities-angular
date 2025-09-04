@@ -5,13 +5,16 @@ import {
   RequestRoute,
   RequestStatus,
 } from '../../../common/types/types';
-import { catchError, Observable, shareReplay } from 'rxjs';
+import { catchError, EMPTY, Observable, shareReplay } from 'rxjs';
+import { ToastifyService } from '../../../common/services/toastify/toastify.service';
+import { ErrorText } from '../../../common/consts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OffersService {
   private http = inject(HttpClient);
+  private toastifyService = inject(ToastifyService);
   public status = RequestStatus.Idle;
   public offers$?: Observable<Offer[]>;
   public fetchOffers$ = (): Observable<Offer[]> => {
@@ -19,7 +22,11 @@ export class OffersService {
       this.offers$ = this.http
         .get<Offer[]>(RequestRoute.Offers)
         .pipe(shareReplay(1));
-      catchError(() => (this.status = RequestStatus.Failed));
+      catchError(() => {
+        this.toastifyService.showToast(ErrorText.offers);
+        this.status = RequestStatus.Failed;
+        return EMPTY;
+      });
     }
 
     return this.offers$;

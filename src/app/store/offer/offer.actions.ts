@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ReviewType } from '../../mocks/reviews';
-import { Offer } from '../../mocks/offers';
-import { OfferFull } from '../../mocks/offer';
+import { Offer, OfferFull, ReviewType } from '../../common/types/types';
 
 export const setOfferDetailsSuccess = createAction(
   '[Offer Details API] Set Offer Details Success',

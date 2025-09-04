@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ReviewType } from '../../../../mocks/reviews';
 import { ReviewComponent } from '../review/review.component';
+import { ReviewType } from '../../../../common/types/types';
 
 @Component({
   selector: 'app-reviews-list',

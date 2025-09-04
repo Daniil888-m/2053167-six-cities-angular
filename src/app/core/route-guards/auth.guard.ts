@@ -1,10 +1,11 @@
 import { inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { CanActivateFn } from '@angular/router';
-import { AuthStatus } from '../types/types';
+
 import { Store } from '@ngrx/store';
 import { getUserStatus } from '../../store/user/user.selectors';
 import { map, take } from 'rxjs';
+import { AuthStatus } from '../../common/types/types';
 
 export const AuthGuard: CanActivateFn = () => {
   const location = inject(Location);

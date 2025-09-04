@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ReviewType } from '../../../../mocks/reviews';
 import { RatingPipe } from '../../../../common/pipes/rating.pipe';
 import { DatePipe } from '@angular/common';
+import { ReviewType } from '../../../../common/types/types';
 
 @Component({
   selector: 'app-review',

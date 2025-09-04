@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { TokenService } from '../common/services/token.service';
+import { TokenService } from '../../common/services/token.service';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 

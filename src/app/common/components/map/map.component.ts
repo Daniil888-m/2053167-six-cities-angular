@@ -6,8 +6,7 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import { CityInfo } from '../../../mocks/offers';
-import { Offer, OfferFull } from '../../types/types';
+import { CityInfo, Offer, OfferFull } from '../../types/types';
 import 'leaflet/dist/leaflet.css';
 import { MapService } from './services/map.service';
 

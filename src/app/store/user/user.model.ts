@@ -1,5 +1,4 @@
-import { AuthStatus } from '../../common/types/types';
-import { Offer } from '../../mocks/offers';
+import { AuthStatus, Offer } from '../../common/types/types';
 import { EntityState } from '@ngrx/entity';
 
 export interface UserState {

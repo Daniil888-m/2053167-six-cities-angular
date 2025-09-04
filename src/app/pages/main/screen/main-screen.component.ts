@@ -7,7 +7,6 @@ import {
   OnDestroy,
   signal,
 } from '@angular/core';
-import { Offer } from '../../../mocks/offers';
 import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 import { ActiveCardService } from '../services/active-card.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -24,6 +23,7 @@ import {
   CitiesList,
   DEFAULT_ACTIVE_CITY,
 } from '../../../common/services/active-city/active-city.model';
+import { Offer } from '../../../common/types/types';
 
 @Component({
   selector: 'app-main-screen',

@@ -13,12 +13,12 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { offerReducer } from './store/offer/offer.reducer';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './interceptors/auth.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { LoginEffects } from './store/user/user.effects';
 import { appInit } from './store/user/user.actions';
 import { userReducer } from './store/user/user.reducer';
 import { OfferEffects } from './store/offer/offer.effects';
-import { httpInterceptor } from './interceptors/http.interceptor';
+import { httpInterceptor } from './core/interceptors/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

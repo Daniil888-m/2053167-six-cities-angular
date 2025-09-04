@@ -1,8 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { UserState } from './user.model';
-import { AuthStatus } from '../../common/types/types';
+import { AuthStatus, Offer } from '../../common/types/types';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { Offer } from '../../mocks/offers';
 import {
   addFavoriteSuccess,
   removeFavoriteSuccess,

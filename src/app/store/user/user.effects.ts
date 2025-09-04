@@ -16,16 +16,18 @@ import {
 } from './user.actions';
 import { catchError, concatMap, EMPTY, exhaustMap, map, of, tap } from 'rxjs';
 import { UserService } from '../../common/services/user.service';
-import { LoginData, UserInfo } from '../../common/types/types';
-import { Offer } from '../../mocks/offers';
+import { LoginData, Offer, UserInfo } from '../../common/types/types';
 import { Router } from '@angular/router';
 import { TokenService } from '../../common/services/token.service';
+import { ToastifyService } from '../../common/services/toastify/toastify.service';
+import { ErrorText } from '../../common/consts';
 
 @Injectable()
 export class LoginEffects {
   private actions$ = inject(Actions);
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
+  private toastifyService = inject(ToastifyService);
   private router = inject(Router);
 
   checkLogin$ = createEffect(() => {
@@ -53,7 +55,10 @@ export class LoginEffects {
             this.router.navigate(['/']);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => of(setUserNoAuth()))
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.login);
+            return of(setUserNoAuth());
+          })
         );
       })
     );
@@ -65,7 +70,10 @@ export class LoginEffects {
       exhaustMap(() => {
         return this.userService.logout$().pipe(
           map(() => resetUserData()),
-          catchError(() => of(setUserNoAuth()))
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.logout);
+            return of(setUserNoAuth());
+          })
         );
       })
     );
@@ -77,7 +85,10 @@ export class LoginEffects {
       concatMap(() =>
         this.userService.fetchFavorites$().pipe(
           map((favorites: Offer[]) => setFavorites({ favorites })),
-          catchError(() => EMPTY)
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.favorites);
+            return EMPTY;
+          })
         )
       )
     );
@@ -89,7 +100,10 @@ export class LoginEffects {
       exhaustMap(({ favoriteId }) => {
         return this.userService.addFavorite$(favoriteId).pipe(
           map((offer) => addFavoriteSuccess({ offer })),
-          catchError(() => EMPTY)
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.addFavorite);
+            return EMPTY;
+          })
         );
       })
     );
@@ -101,7 +115,10 @@ export class LoginEffects {
       exhaustMap(({ favoriteId }) => {
         return this.userService.removeFavorite$(favoriteId).pipe(
           map((offer) => removeFavoriteSuccess({ offer })),
-          catchError(() => EMPTY)
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.removeFavorite);
+            return EMPTY;
+          })
         );
       })
     );

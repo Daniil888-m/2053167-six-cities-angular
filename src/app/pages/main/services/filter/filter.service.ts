@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Offer } from '../../../../mocks/offers';
 import { filterCompares, filterState } from './filter.model';
 import { filterLabels, FilterOption } from '../shared/filters.model';
+import { Offer } from '../../../../common/types/types';
 
 @Injectable({
   providedIn: 'root',

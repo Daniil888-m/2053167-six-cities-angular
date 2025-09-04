@@ -1,4 +1,4 @@
-import { Offer } from '../../../../mocks/offers';
+import { Offer } from '../../../../common/types/types';
 import { FilterOption } from '../shared/filters.model';
 
 export interface filterState {

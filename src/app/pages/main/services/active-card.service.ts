@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Offer } from '../../../mocks/offers';
+import { Offer } from '../../../common/types/types';
 
 @Injectable()
 export class ActiveCardService {

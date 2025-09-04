@@ -1,5 +1,5 @@
 import { CitiesList } from '../common/services/active-city/active-city.model';
-import { Offer } from '../mocks/offers';
+import { Offer } from '../common/types/types';
 
 export const getUniqueCities = (favoritesOffers: Offer[]) => {
   return favoritesOffers.reduce<string[]>((uniqueCities, offer) => {
