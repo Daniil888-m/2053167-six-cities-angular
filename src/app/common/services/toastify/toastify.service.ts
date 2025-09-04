@@ -6,8 +6,6 @@ import Toastify from 'toastify-js';
 })
 export class ToastifyService {
   public showToast(text: string) {
-    console.log('toast showed!');
-
     Toastify({
       text,
       duration: 3000,

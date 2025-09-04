@@ -21,12 +21,15 @@ import { Router } from '@angular/router';
 import { TokenService } from '../../common/services/token.service';
 import { ToastifyService } from '../../common/services/toastify/toastify.service';
 import { ErrorText } from '../../common/consts';
+import { DataSendingService } from '../../pages/login/services/data-sending.service';
 
 @Injectable()
 export class LoginEffects {
   private actions$ = inject(Actions);
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
+  private dataSendingService = inject(DataSendingService);
+
   private toastifyService = inject(ToastifyService);
   private router = inject(Router);
 
@@ -56,6 +59,7 @@ export class LoginEffects {
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
           catchError(() => {
+            this.dataSendingService.setDataNotSending();
             this.toastifyService.showToast(ErrorText.login);
             return of(setUserNoAuth());
           })
