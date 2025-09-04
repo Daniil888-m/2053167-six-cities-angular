@@ -37,7 +37,7 @@ export class LoginEffects {
             this.tokenService.setToken(userInfo.token);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => EMPTY)
+          catchError(() => of(setUserNoAuth()))
         );
       })
     );

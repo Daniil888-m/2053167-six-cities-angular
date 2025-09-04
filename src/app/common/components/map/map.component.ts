@@ -22,6 +22,7 @@ export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
   cityInfo = input.required<CityInfo | null>();
   activeOffer = input.required<Offer | { id: string } | null>();
   currentOffers = input.required<(Offer | OfferFull)[]>();
+
   private mapService = inject(MapService);
 
   ngAfterViewInit(): void {
