@@ -26,8 +26,9 @@ export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      if (this.cityInfo()) {
-        this.mapService.initMap(this.cityInfo() as CityInfo);
+      const cityInfoValue = this.cityInfo();
+      if (cityInfoValue) {
+        this.mapService.initMap(cityInfoValue);
         this.mapService.renderMarkers(this.currentOffers(), this.activeOffer());
       }
     }, 100);
