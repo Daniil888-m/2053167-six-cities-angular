@@ -59,11 +59,13 @@ export class LoginEffects {
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
           catchError(() => {
-            this.dataSendingService.setDataNotSending();
             this.toastifyService.showToast(ErrorText.login);
             return of(setUserNoAuth());
           })
         );
+      }),
+      tap(() => {
+        this.dataSendingService.setDataNotSending();
       })
     );
   });
