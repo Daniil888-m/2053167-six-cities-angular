@@ -12,13 +12,9 @@ export class DataSendingService {
   }
 
   public setDataSending() {
-    console.log('data is Sending!!');
-
     this.isDataSending$.next(true);
   }
   public setDataNotSending() {
-    console.log('dataNotSending');
-
     this.isDataSending$.next(false);
   }
 }

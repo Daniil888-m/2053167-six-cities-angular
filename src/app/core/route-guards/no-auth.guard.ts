@@ -9,7 +9,6 @@ export const NoAuthGuard: CanActivateFn = () => {
 
   if (tokenService.getToken()) {
     location.back();
-    console.log("no, you can't", tokenService.getToken());
     return false;
   }
 
