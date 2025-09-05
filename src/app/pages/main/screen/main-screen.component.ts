@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
 import { ActiveCardService } from '../services/active-card.service';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, EMPTY, Subject, takeUntil } from 'rxjs';
 import { MapComponent } from '../../../common/components/map/map.component';
 import { filterByCity } from '../../../utils/utils';
 import { OffersService } from '../services/offers.service';
@@ -24,6 +24,8 @@ import {
   DEFAULT_ACTIVE_CITY,
 } from '../../../common/services/active-city/active-city.model';
 import { Offer } from '../../../common/types/types';
+import { ToastifyService } from '../../../common/services/toastify/toastify.service';
+import { ErrorText } from '../../../common/consts';
 
 @Component({
   selector: 'app-main-screen',
@@ -47,6 +49,8 @@ export class MainScreenComponent implements OnDestroy {
   private initialItems = signal<Offer[]>([]);
 
   public Cities = CitiesList;
+  private toastifyService = inject(ToastifyService);
+
   public activeFilterService = inject(CurrentFilterService);
   public isListVisible = signal(true);
   public isLoading = signal(true);
@@ -74,11 +78,21 @@ export class MainScreenComponent implements OnDestroy {
       this.items.set(sortedItems);
     });
 
-    this.offersService.fetchOffers$().subscribe((offers: Offer[]) => {
-      this.initialItems.set(offers);
-      this.activeFilterService.setItems(this.activeCityOffers());
-      this.isLoading.set(false);
-    });
+    this.offersService
+      .fetchOffers$()
+      .pipe(
+        catchError(() => {
+          this.toastifyService.showToast(ErrorText.offers);
+          this.isLoading.set(false);
+          this.isFailed.set(true);
+          return EMPTY;
+        })
+      )
+      .subscribe((offers: Offer[]) => {
+        this.initialItems.set(offers);
+        this.activeFilterService.setItems(this.activeCityOffers());
+        this.isLoading.set(false);
+      });
 
     this.activeOfferService.current$
       .asObservable()

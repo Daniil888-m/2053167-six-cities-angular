@@ -40,7 +40,7 @@
   <app-spinner></app-spinner>
   } @else {
   <div class="cities">
-    @if(!items().length) {
+    @if(this.isFailed()) {
     <div class="cities__places-container cities__places-container--empty container">
       <section class="cities__no-places">
         <div class="cities__status-wrapper tabs__content">
