@@ -1,7 +1,9 @@
 .option-btn {
+  display: flex;
+  width: 100%;
   background: none;
   border: none;
-  padding: 0;
+  padding: 14px 16px 10px;
   margin: 0;
   box-shadow: none;
   -webkit-appearance: none;
@@ -9,4 +11,8 @@
   appearance: none;
 
   cursor: pointer;
+}
+
+.places__option {
+  padding: 0;
 }

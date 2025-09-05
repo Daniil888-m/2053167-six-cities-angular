@@ -14,7 +14,7 @@ import { MapComponent } from '../../../common/components/map/map.component';
 import { filterByCity } from '../../../utils/utils';
 import { OffersService } from '../services/offers.service';
 import { SpinnerComponent } from '../../../common/components/spinner/spinner.component';
-import { EveryClickDirective } from '../directives/click-outside-directive.directive';
+import { EveryClickDirective } from '../directives/every-click-directive.directive';
 import { CurrentFilterService } from '../services/filter/filter.service';
 import { OptionListComponent } from '../components/option-list/option-list.component';
 import { AsyncPipe } from '@angular/common';
