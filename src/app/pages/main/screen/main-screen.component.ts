@@ -52,7 +52,7 @@ export class MainScreenComponent implements OnDestroy {
   private toastifyService = inject(ToastifyService);
 
   public activeFilterService = inject(CurrentFilterService);
-  public isListVisible = signal(true);
+  public isListVisible = signal(false);
   public isLoading = signal(true);
   public isFailed = signal(false);
 
