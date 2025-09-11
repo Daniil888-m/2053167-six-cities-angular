@@ -12,7 +12,7 @@ import { ActiveCardService } from '../services/active-card.service';
 import { catchError, EMPTY, Subject, takeUntil } from 'rxjs';
 import { MapComponent } from '../../../common/components/map/map.component';
 import { filterByCity } from '../../../utils/utils';
-import { OffersService } from '../services/offers.service';
+import { OffersService } from '../services/offers/offers.service';
 import { SpinnerComponent } from '../../../common/components/spinner/spinner.component';
 import { EveryClickDirective } from '../directives/every-click-directive.directive';
 import { CurrentFilterService } from '../services/filter/filter.service';

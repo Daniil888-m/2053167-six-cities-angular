@@ -4,7 +4,7 @@ import {
   Offer,
   RequestRoute,
   RequestStatus,
-} from '../../../common/types/types';
+} from '../../../../common/types/types';
 import { Observable, shareReplay } from 'rxjs';
 
 @Injectable({
