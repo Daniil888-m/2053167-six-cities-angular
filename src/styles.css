@@ -1,4 +1,4 @@
-@import "toastify-js/src/toastify.css";
+@import "../node_modules/toastify-js/src/toastify.css";
 
 html {
   line-height: 1.15;

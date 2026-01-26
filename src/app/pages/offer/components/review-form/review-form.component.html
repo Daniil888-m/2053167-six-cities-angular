@@ -2,7 +2,7 @@
   <label class="reviews__label form__label" for="review">Your review</label>
   <div class="reviews__rating-form form__rating">
 
-    @for(rating of ratingData;track $index ) {
+    @for(rating of ratingData; track $index ) {
     <input class="form__rating-input visually-hidden" formControlName="rating" value="{{rating.value}}" id="{{rating.value}}-stars" type="radio">
     <label for="{{rating.value}}-stars" class="reviews__rating-label form__rating-label" title="{{rating.title}}">
       <svg class="form__star-image" width="37" height="33">

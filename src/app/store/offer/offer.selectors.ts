@@ -30,9 +30,3 @@ export const getOfferStatus = createSelector(
   (state) => state.status
 );
 
-// export const getReviews = createSelector(getOfferFeature, (state) => {
-//   selectReviews(state.reviews);
-// });
-// export const getNearbyOffers = createSelector(getOfferFeature, (state) => {
-//   selectNearbyOffers(state.nearbyOffers);
-// });

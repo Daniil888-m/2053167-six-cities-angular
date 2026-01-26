@@ -46,7 +46,7 @@ export class MainScreenComponent implements OnDestroy {
   private activeOfferService = inject(ActiveCardService);
   private activeCityService = inject(ActiveCityService);
   private offersService = inject(OffersService);
-  private initialItems = signal<Offer[]>([]);
+  public initialItems = signal<Offer[]>([]);
 
   public Cities = CitiesList;
   private toastifyService = inject(ToastifyService);
