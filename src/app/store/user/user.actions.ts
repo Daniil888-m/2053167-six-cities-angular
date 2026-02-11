@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Offer } from '../../mocks/offers';
-import { UserInfo } from '../../common/types/types';
+import { Offer, UserInfo } from '../../common/types/types';
 
 export const checkLogin = createAction('[User] check user authorization');
 export const login = createAction(
@@ -11,6 +10,22 @@ export const login = createAction(
 export const setFavorites = createAction(
   '[User] set favorites',
   props<{ favorites: Offer[] }>()
+);
+export const addFavorite = createAction(
+  '[User] fetch to add favorite',
+  props<{ favoriteId: string }>()
+);
+export const addFavoriteSuccess = createAction(
+  '[User] add favorite success',
+  props<{ offer: Offer }>()
+);
+export const removeFavorite = createAction(
+  '[User] fetch to remove favorite',
+  props<{ favoriteId: string }>()
+);
+export const removeFavoriteSuccess = createAction(
+  '[User] remove favorite success',
+  props<{ offer: Offer }>()
 );
 
 export const setUserInfo = createAction(

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,6 +11,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { addReview } from '../../../../store/offer/offer.actions';
 
 @Component({
   selector: 'app-review-form',
@@ -16,6 +23,8 @@ import {
 })
 export class ReviewFormComponent {
   private fb = inject(FormBuilder);
+  private store = inject(Store);
+  public offerId = input.required<string>();
   public reviewForm: FormGroup;
 
   public ratingData = [
@@ -28,14 +37,20 @@ export class ReviewFormComponent {
 
   constructor() {
     this.reviewForm = this.fb.group({
-      text: ['', [Validators.required, Validators.minLength(50)]],
+      comment: ['', [Validators.required, Validators.minLength(50)]],
       rating: [0, [Validators.required, Validators.min(1)]],
     });
   }
 
   public onSubmit() {
     const data = this.reviewForm.value;
-    console.log(data);
+
+    this.store.dispatch(
+      addReview({
+        review: { ...data, rating: Number(data.rating) },
+        offerId: this.offerId(),
+      })
+    );
     this.reviewForm.reset();
   }
 }

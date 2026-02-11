@@ -1,18 +1,16 @@
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ReviewType } from '../../mocks/reviews';
-import { Offer } from '../../mocks/offers';
-import { OfferState } from './offer.model';
-import { RequestStatus } from '../../common/types/types';
+import { OfferState, sortByDate } from './offer.model';
+import { Offer, RequestStatus, ReviewType } from '../../common/types/types';
 import { createReducer, on } from '@ngrx/store';
 import {
-  addReview,
+  addReviewSuccess,
   resetFormData,
   setOfferDetailsFailed,
   setOfferDetailsSuccess,
 } from './offer.actions';
 
 export const reviewsAdapter: EntityAdapter<ReviewType> =
-  createEntityAdapter<ReviewType>();
+  createEntityAdapter<ReviewType>({ sortComparer: sortByDate });
 export const nearbyOffersAdapter: EntityAdapter<Offer> =
   createEntityAdapter<Offer>();
 
@@ -37,7 +35,7 @@ export const offerReducer = createReducer(
       status: RequestStatus.Success,
     };
   }),
-  on(addReview, (state, { review }) => {
+  on(addReviewSuccess, (state, { review }) => {
     return {
       ...state,
       reviews: reviewsAdapter.addOne(review, state.reviews),

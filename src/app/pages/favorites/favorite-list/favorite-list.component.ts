@@ -4,9 +4,9 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { Offer } from '../../../mocks/offers';
 import { getUniqueCities } from '../../../utils/utils';
 import { OffersListComponent } from '../../../common/components/offers-list/offers-list.component';
+import { Offer } from '../../../common/types/types';
 
 @Component({
   selector: 'app-favorite-list',
@@ -18,7 +18,7 @@ import { OffersListComponent } from '../../../common/components/offers-list/offe
 export class FavoriteListComponent {
   public offers = input.required<Offer[]>();
 
-  public uniqueCitites = computed(() => getUniqueCities(this.offers()));
+  public uniqueCitites = computed(() => getUniqueCities(this.offers()).sort());
 
   public getOfferByCity = (city: string) => {
     return this.offers().filter((offer) => offer.city.name === city);

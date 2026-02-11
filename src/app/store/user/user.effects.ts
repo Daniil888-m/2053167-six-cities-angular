@@ -1,10 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  addFavorite,
+  addFavoriteSuccess,
   appInit,
   checkLogin,
   login,
   logout,
+  removeFavorite,
+  removeFavoriteSuccess,
   resetUserData,
   setFavorites,
   setUserInfo,
@@ -12,16 +16,21 @@ import {
 } from './user.actions';
 import { catchError, concatMap, EMPTY, exhaustMap, map, of, tap } from 'rxjs';
 import { UserService } from '../../common/services/user.service';
-import { LoginData, UserInfo } from '../../common/types/types';
-import { Offer } from '../../mocks/offers';
+import { LoginData, Offer, UserInfo } from '../../common/types/types';
 import { Router } from '@angular/router';
 import { TokenService } from '../../common/services/token.service';
+import { ToastifyService } from '../../common/services/toastify/toastify.service';
+import { ErrorText } from '../../common/consts';
+import { DataSendingService } from '../../pages/login/services/data-sending.service';
 
 @Injectable()
 export class LoginEffects {
   private actions$ = inject(Actions);
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
+  private dataSendingService = inject(DataSendingService);
+
+  private toastifyService = inject(ToastifyService);
   private router = inject(Router);
 
   checkLogin$ = createEffect(() => {
@@ -30,11 +39,10 @@ export class LoginEffects {
       exhaustMap(() => {
         return this.userService.checklogin$().pipe(
           tap((userInfo: UserInfo) => {
-            console.log('token isSet');
             this.tokenService.setToken(userInfo.token);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => EMPTY)
+          catchError(() => of(setUserNoAuth()))
         );
       })
     );
@@ -46,12 +54,18 @@ export class LoginEffects {
       exhaustMap(({ email, password }: LoginData) => {
         return this.userService.login$({ email, password }).pipe(
           tap((userInfo: UserInfo) => {
-            this.router.navigate(['/']);
             this.tokenService.setToken(userInfo.token);
+            this.router.navigate(['/']);
           }),
           map((userInfo: UserInfo) => setUserInfo(userInfo)),
-          catchError(() => of(setUserNoAuth()))
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.login);
+            return of(setUserNoAuth());
+          })
         );
+      }),
+      tap(() => {
+        this.dataSendingService.setDataNotSending();
       })
     );
   });
@@ -61,12 +75,11 @@ export class LoginEffects {
       ofType(logout),
       exhaustMap(() => {
         return this.userService.logout$().pipe(
-          tap(() => {
-            this.router.navigate(['/']);
-            this.tokenService.dropToken();
-          }),
           map(() => resetUserData()),
-          catchError(() => of(setUserNoAuth()))
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.logout);
+            return of(setUserNoAuth());
+          })
         );
       })
     );
@@ -78,9 +91,42 @@ export class LoginEffects {
       concatMap(() =>
         this.userService.fetchFavorites$().pipe(
           map((favorites: Offer[]) => setFavorites({ favorites })),
-          catchError(() => EMPTY)
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.favorites);
+            return EMPTY;
+          })
         )
       )
+    );
+  });
+
+  fetchAddFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addFavorite),
+      exhaustMap(({ favoriteId }) => {
+        return this.userService.addFavorite$(favoriteId).pipe(
+          map((offer) => addFavoriteSuccess({ offer })),
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.addFavorite);
+            return EMPTY;
+          })
+        );
+      })
+    );
+  });
+
+  fetchRemoveFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removeFavorite),
+      exhaustMap(({ favoriteId }) => {
+        return this.userService.removeFavorite$(favoriteId).pipe(
+          map((offer) => removeFavoriteSuccess({ offer })),
+          catchError(() => {
+            this.toastifyService.showToast(ErrorText.removeFavorite);
+            return EMPTY;
+          })
+        );
+      })
     );
   });
 

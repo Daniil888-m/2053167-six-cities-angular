@@ -12,10 +12,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../common/services/user.service';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/user/user.actions';
+import { RandomCityService } from './services/random-city.service';
+import { ActiveCityService } from '../../common/services/active-city/active-city.service';
+import { DEFAULT_ACTIVE_CITY } from '../../common/services/active-city/active-city.model';
+import { DataSendingService } from './services/data-sending.service';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +27,15 @@ import { login } from '../../store/user/user.actions';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UserService],
+  providers: [UserService, RandomCityService],
 })
 export class LoginComponent implements OnDestroy {
   private fb = inject(FormBuilder);
   private store = inject(Store);
+  private router = inject(Router);
+  private dataSendingService = inject(DataSendingService);
+  public randomCityService = inject(RandomCityService);
+  public activeCityService = inject(ActiveCityService);
   public loginForm: FormGroup;
   public isDataSending = signal(false);
 
@@ -42,12 +50,24 @@ export class LoginComponent implements OnDestroy {
         ],
       ],
     });
+
+    this.dataSendingService.isDataSending$.subscribe((isSending) => {
+      this.isDataSending.set(isSending);
+    });
+  }
+
+  public onCityClick($event: MouseEvent | Event) {
+    $event.preventDefault();
+    this.activeCityService.changeActiveCity(
+      this.randomCityService.lastCity || DEFAULT_ACTIVE_CITY
+    );
+    this.router.navigate(['/']);
   }
 
   public onSubmit(): void {
     const formData = this.loginForm.value;
     this.store.dispatch(login(formData));
-    this.isDataSending.set(true);
+    this.dataSendingService.setDataSending();
   }
 
   public ngOnDestroy(): void {

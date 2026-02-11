@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { CityInfo } from '../../../../mocks/offers';
-import { Offer } from '../../../types/types';
+import { CityInfo, Offer } from '../../../types/types';
 import { currentCustomIcon, defaultCustomIcon } from '../map.model';
 @Injectable()
 export class MapService {
